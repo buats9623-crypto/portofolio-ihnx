@@ -1,0 +1,5850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <meta
+    name="description"
+    content="Muhammad Ilham — Digital Designer"
+  />
+
+  <title>Muhammad Ilham — Designer</title>
+
+  <!-- =========================================================
+       TAILWIND CSS 4
+  ========================================================== -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+
+  <!-- =========================================================
+       TYPOGRAPHY
+  ========================================================== -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"
+    rel="stylesheet"
+  />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+    rel="stylesheet"
+  />
+
+
+  <!-- =========================================================
+       GSAP + SCROLLTRIGGER
+  ========================================================== -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+
+  <!-- =========================================================
+       CUSTOM CSS
+  ========================================================== -->
+
+  <style>
+
+    /* =========================================================
+       DESIGN TOKENS
+    ========================================================== */
+
+    :root {
+      --canvas: #fafafa;
+      --white: #ffffff;
+
+      --black: #151515;
+      --black-soft: #222222;
+
+      --gray-700: #555555;
+      --gray-500: #777777;
+      --gray-400: #999999;
+      --gray-300: #d4d4d4;
+      --gray-200: #e6e6e6;
+      --gray-100: #f2f2f2;
+
+      --success: #20b965;
+
+      --ease:
+        cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+
+    /* =========================================================
+       RESET
+    ========================================================== */
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+
+      background: #b8b8b8;
+
+      color: var(--black);
+
+      font-family:
+        Inter,
+        Helvetica Neue,
+        Helvetica,
+        Arial,
+        sans-serif;
+
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    :is(
+      #work,
+      #about,
+      #skills,
+      #experience,
+      #education,
+      #journey,
+      #now,
+      #services,
+      #learning,
+      #beyond,
+      #contact
+    ) {
+      font-family:
+        Geist,
+        Inter,
+        Helvetica Neue,
+        Helvetica,
+        Arial,
+        sans-serif;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    ::selection {
+      background: var(--black);
+      color: white;
+    }
+
+
+    /* =========================================================
+       PORTFOLIO FRAME
+    ========================================================== */
+
+    .portfolio-frame {
+      width:
+        min(
+          1400px,
+          calc(100% - 32px)
+        );
+
+      margin:
+        32px auto;
+
+      background:
+        var(--canvas);
+
+      border:
+        1px solid
+        rgba(255,255,255,0.95);
+
+      box-shadow:
+        0 30px 100px
+        rgba(0,0,0,0.10);
+    }
+
+
+    /* =========================================================
+       TYPOGRAPHY
+    ========================================================== */
+
+    .display-text {
+      letter-spacing:
+        -0.075em;
+
+      line-height:
+        0.84;
+    }
+
+    .outline-text {
+      color:
+        transparent;
+
+      -webkit-text-stroke:
+        clamp(1px, 0.12vw, 2px)
+        var(--black);
+    }
+
+    .section-heading {
+      letter-spacing:
+        -0.075em;
+
+      line-height:
+        0.95;
+    }
+
+
+    /* =========================================================
+       HERO NAME
+
+       Responsive sizing prevents ILHAM from being clipped.
+    ========================================================== */
+
+    .hero-name {
+      width: 100%;
+
+      font-size:
+        clamp(
+          2.7rem,
+          8vw,
+          8.4rem
+        );
+
+      letter-spacing:
+        -0.078em;
+
+      line-height:
+        0.82;
+
+      white-space:
+        nowrap;
+    }
+
+
+
+    /* =========================================================
+       HERO TEXT — CURTAIN REVEAL
+    ========================================================== */
+
+    .hero-curtain {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .hero-curtain::before,
+    .hero-curtain::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 50%;
+      z-index: 10;
+      background: var(--canvas);
+      pointer-events: none;
+      transition: transform 1200ms cubic-bezier(0.76, 0, 0.24, 1);
+    }
+
+    /* MUHAMMAD ILHAM — OPEN FASTER */
+    #heroNameReveal::before,
+    #heroNameReveal::after {
+      transition-duration: 650ms;
+    }
+
+    #heroNameReveal .hero-curtain-content {
+      transition: opacity 300ms ease 80ms,
+                  transform 450ms var(--ease) 0ms;
+    }
+
+    .hero-curtain::before {
+      left: 0;
+      transform: translateX(0);
+    }
+
+    .hero-curtain::after {
+      right: 0;
+      transform: translateX(0);
+    }
+
+    .hero-curtain.is-open::before {
+      transform: translateX(-100%);
+    }
+
+    .hero-curtain.is-open::after {
+      transform: translateX(100%);
+    }
+
+    .hero-curtain-content {
+      opacity: 0;
+      transform: scale(0.985);
+      transition: opacity 700ms ease 650ms, transform 1000ms var(--ease) 550ms;
+    }
+
+    .hero-curtain.is-open .hero-curtain-content {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+
+    /* =========================================================
+       HERO IMAGE
+    ========================================================== */
+
+    .hero-person {
+      transform:
+        translate3d(0,0,0);
+
+      transition:
+        transform 900ms var(--ease);
+    }
+
+
+    /* =========================================================
+       GENERAL REVEAL
+    ========================================================== */
+
+    .reveal {
+      opacity: 0;
+
+      transform:
+        translateY(35px);
+
+      transition:
+        opacity 800ms var(--ease),
+        transform 800ms var(--ease);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+
+      transform:
+        translateY(0);
+    }
+
+
+    /* =========================================================
+       IMAGE REVEAL
+    ========================================================== */
+
+    .reveal-image {
+      overflow:
+        hidden;
+    }
+
+    .reveal-image img {
+      transform:
+        scale(1.08);
+
+      transition:
+        transform 1200ms var(--ease);
+    }
+
+    .reveal-image.is-visible img {
+      transform:
+        scale(1);
+    }
+
+
+    /* =========================================================
+       PROJECTS
+    ========================================================== */
+
+    .project-card {
+      transition:
+        transform 500ms var(--ease);
+    }
+
+    .project-card:hover {
+      transform:
+        translateY(-5px);
+    }
+
+    .project-image {
+      transition:
+        transform 900ms var(--ease);
+    }
+
+    .project-card:hover
+    .project-image {
+      transform:
+        scale(1.035);
+    }
+
+    .project-arrow {
+      transition:
+        transform 350ms var(--ease);
+    }
+
+    .project-card:hover
+    .project-arrow {
+      transform:
+        translate3d(4px,-4px,0);
+    }
+
+
+    /* =========================================================
+       LINKS
+    ========================================================== */
+
+    .nav-link {
+      position: relative;
+    }
+
+    .nav-link::after {
+      content: "";
+
+      position: absolute;
+
+      left: 0;
+      bottom: -6px;
+
+      width: 0;
+      height: 1px;
+
+      background:
+        currentColor;
+
+      transition:
+        width 300ms var(--ease);
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 100%;
+    }
+
+
+    /* =========================================================
+       MARQUEE
+    ========================================================== */
+
+    .marquee-track {
+      display: flex;
+
+      width:
+        max-content;
+
+      animation:
+        marquee 25s linear infinite;
+    }
+
+    @keyframes marquee {
+
+      from {
+        transform:
+          translateX(0);
+      }
+
+      to {
+        transform:
+          translateX(-50%);
+      }
+
+    }
+
+
+    /* =========================================================
+       SELECTED WORK — STACKING CARDS
+    ========================================================== */
+
+    .work-stack-item {
+      position: relative;
+      will-change: transform;
+    }
+
+    @media (min-width: 1024px) {
+      .work-stack-item {
+        position: sticky;
+        top: 96px;
+      }
+    }
+
+    /* first card entrance — mobile only, so
+       the opening card doesn't just slide into
+       view while everything else around it moves */
+
+    @media (max-width: 1023px) {
+      .work-entrance {
+        opacity: 0;
+
+        transform:
+          translateY(35px);
+
+        transition:
+          opacity 800ms var(--ease),
+          transform 800ms var(--ease);
+      }
+
+      .work-entrance.is-visible {
+        opacity: 1;
+
+        transform:
+          translateY(0);
+      }
+    }
+
+    @media (max-width: 1023px) and (prefers-reduced-motion: reduce) {
+      .work-entrance {
+        transform: none;
+      }
+    }
+
+
+    /* =========================================================
+       MOBILE — PROJECT STACK (TAP TO CYCLE)
+
+       Mobile only, guarded twice: JS toggles .is-stacked,
+       the media query keeps desktop untouched even if
+       the class lingers.
+    ========================================================== */
+
+    .project-stack {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+
+      #projectGrid.is-stacked .project-stack {
+        display: block;
+      }
+
+      #projectGrid.is-stacked .project-item {
+        display: none;
+      }
+
+    }
+
+    .stack-stage {
+      position: relative;
+
+      aspect-ratio: 16 / 9;
+
+      cursor: pointer;
+
+      touch-action: manipulation;
+
+      user-select: none;
+      -webkit-user-select: none;
+
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .stack-stage:focus-visible {
+      outline: 2px solid var(--black);
+      outline-offset: 4px;
+    }
+
+    .stack-card {
+      position: absolute;
+      inset: 0;
+
+      overflow: hidden;
+
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+
+      will-change: transform, opacity;
+
+      transition:
+        transform 450ms var(--ease),
+        opacity 450ms var(--ease);
+    }
+
+    .stack-card img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+    }
+
+    .stack-content {
+      margin-top: 28px;
+    }
+
+
+    /* =========================================================
+       SKILLS — HORIZONTAL ACCORDION
+    ========================================================== */
+
+    .skills-accordion {
+      display: flex;
+
+      gap: 10px;
+
+      height: 470px;
+    }
+
+    .skill-slice {
+      position: relative;
+
+      display: flex;
+
+      align-items: stretch;
+
+      flex: 1 1 0;
+
+      min-width: 0;
+
+      overflow: hidden;
+
+      background: var(--white);
+
+      border: 1px solid var(--gray-200);
+
+      transition:
+        flex 700ms var(--ease);
+
+      cursor: pointer;
+    }
+
+    .skill-slice.is-open {
+      flex: 5 1 0;
+    }
+
+    .skill-slice-label {
+      flex: none;
+
+      width: 58px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      border-right: 1px solid var(--gray-200);
+
+      writing-mode: vertical-rl;
+
+      transform: rotate(180deg);
+
+      font-size: 11px;
+
+      letter-spacing: 0.16em;
+
+      text-transform: uppercase;
+
+      color: var(--gray-500);
+
+      transition:
+        color 400ms ease;
+    }
+
+    .skill-slice.is-open .skill-slice-label {
+      color: var(--black);
+    }
+
+    .skill-slice-body {
+      flex: 1 1 auto;
+
+      min-width: 0;
+
+      padding: 26px 22px;
+
+      opacity: 0;
+
+      transform: translateX(-8px);
+
+      overflow: hidden;
+
+      transition:
+        opacity 450ms ease 160ms,
+        transform 600ms var(--ease) 160ms;
+    }
+
+    .skill-slice.is-open .skill-slice-body {
+      opacity: 1;
+
+      transform: translateX(0);
+    }
+
+    .skill-item {
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      padding: 11px 0;
+
+      border-top: 1px solid var(--gray-200);
+
+      font-size: 15px;
+
+      letter-spacing: -0.02em;
+
+      white-space: nowrap;
+    }
+
+    .skill-item:last-child {
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .skill-item i {
+      width: 5px;
+      height: 5px;
+
+      border-radius: 50%;
+
+      background: var(--gray-300);
+
+      transition:
+        background-color 300ms ease,
+        transform 400ms var(--ease);
+    }
+
+    .skill-slice.is-open .skill-item:hover i {
+      background: var(--black);
+
+      transform: scale(1.6);
+    }
+
+
+    /* =========================================================
+       INLINE TYPOGRAPHY IMAGE
+    ========================================================== */
+
+    .inline-pill {
+      display: inline-block;
+
+      vertical-align: middle;
+
+      width: clamp(70px, 8vw, 118px);
+
+      height: clamp(30px, 3.4vw, 50px);
+
+      margin: 0 0.16em;
+
+      border-radius: 9999px;
+
+      background-color: #2e2e2e;
+
+      background-size: cover;
+
+      background-position: center;
+
+      filter: grayscale(1) contrast(1.15);
+
+      transform: translateY(-0.1em);
+    }
+
+
+    /* =========================================================
+       OUTLINE — FILL ON HOVER
+    ========================================================== */
+
+    .outline-fill {
+      color: transparent;
+
+      -webkit-text-stroke:
+        clamp(1px, 0.1vw, 1.6px)
+        var(--black);
+
+      transition:
+        color 500ms var(--ease);
+    }
+
+    .learning-row:hover .outline-fill {
+      color: var(--black);
+    }
+
+
+    /* =========================================================
+       DARK BAND
+    ========================================================== */
+
+    .section-dark {
+      background: var(--black);
+
+      color: var(--white);
+    }
+
+
+    /* =========================================================
+       WHAT I DO — ROW DETAIL
+    ========================================================== */
+
+    .service-detail {
+      max-height: 0;
+
+      overflow: hidden;
+
+      transition:
+        max-height 600ms var(--ease);
+    }
+
+    .service-row-group:hover .service-detail {
+      max-height: 140px;
+    }
+
+
+    /* =========================================================
+       EXPERIENCE — TIMELINE
+    ========================================================== */
+
+    .experience-line {
+      overflow:
+        hidden;
+    }
+
+    .experience-line-progress {
+      height: 0;
+
+      transition:
+        height 1800ms
+        cubic-bezier(
+          0.22,
+          1,
+          0.36,
+          1
+        );
+    }
+
+    .experience-timeline.is-visible
+    .experience-line-progress {
+      height: 100%;
+    }
+
+
+    /* Individual experience */
+
+    .experience-item {
+      opacity: 0;
+
+      transform:
+        translateX(45px);
+
+      transition:
+        opacity 800ms var(--ease),
+        transform 900ms var(--ease);
+    }
+
+    .experience-item.is-visible {
+      opacity: 1;
+
+      transform:
+        translateX(0);
+    }
+
+
+    /* Timeline dot */
+
+    .experience-dot {
+      transform:
+        scale(0);
+
+      transition:
+        transform 500ms var(--ease),
+        background-color 300ms ease;
+    }
+
+    .experience-item.is-visible
+    .experience-dot {
+      transform:
+        scale(1);
+    }
+
+    .experience-dot-inner {
+      transform:
+        scale(0);
+
+      transition:
+        transform 450ms
+        var(--ease) 250ms;
+    }
+
+    .experience-item.is-visible
+    .experience-dot-inner {
+      transform:
+        scale(1);
+    }
+
+
+    /* Experience year */
+
+    .experience-year {
+      opacity: 0;
+
+      transform:
+        translateY(10px);
+
+      transition:
+        opacity 500ms ease 200ms,
+        transform 500ms var(--ease) 200ms;
+    }
+
+    .experience-item.is-visible
+    .experience-year {
+      opacity: 1;
+
+      transform:
+        translateY(0);
+    }
+
+
+    /* Experience number */
+
+    .experience-number {
+      opacity: 0;
+
+      transform:
+        translateX(15px);
+
+      transition:
+        opacity 500ms ease 300ms,
+        transform 500ms var(--ease) 300ms;
+    }
+
+    .experience-item.is-visible
+    .experience-number {
+      opacity: 1;
+
+      transform:
+        translateX(0);
+    }
+
+
+    /* Tags */
+
+    .experience-tag {
+      display:
+        inline-flex;
+
+      border:
+        1px solid #ddd;
+
+      border-radius:
+        9999px;
+
+      padding:
+        7px 11px;
+
+      font-size:
+        10px;
+
+      color:
+        #777;
+
+      opacity: 0;
+
+      transform:
+        translateY(10px);
+
+      transition:
+        opacity 500ms ease,
+        transform 500ms var(--ease);
+    }
+
+    .experience-item.is-visible
+    .experience-tag {
+      opacity: 1;
+
+      transform:
+        translateY(0);
+    }
+
+    .experience-item.is-visible
+    .experience-tag:nth-child(1) {
+      transition-delay:
+        450ms;
+    }
+
+    .experience-item.is-visible
+    .experience-tag:nth-child(2) {
+      transition-delay:
+        520ms;
+    }
+
+    .experience-item.is-visible
+    .experience-tag:nth-child(3) {
+      transition-delay:
+        590ms;
+    }
+
+
+    /* =========================================================
+       SERVICES
+    ========================================================== */
+
+    .service-row {
+      transition:
+        padding-left 400ms var(--ease),
+        padding-right 400ms var(--ease),
+        background-color 400ms ease;
+    }
+
+    .service-row:hover {
+      padding-left:
+        14px;
+
+      padding-right:
+        14px;
+
+      background:
+        #f5f5f5;
+    }
+
+    .service-arrow {
+      transition:
+        transform 350ms var(--ease);
+    }
+
+    .service-row:hover
+    .service-arrow {
+      transform:
+        translate(4px,-4px);
+    }
+
+
+    /* =========================================================
+       LET'S TALK
+       
+       WINDOW OPENING EFFECT
+    ========================================================== */
+
+    .contact-window {
+      position: absolute;
+
+      inset: 0;
+
+      z-index: 20;
+
+      pointer-events: none;
+    }
+
+
+    /* Left and right shutters */
+
+    .window-panel {
+      position: absolute;
+
+      top: 0;
+      bottom: 0;
+
+      width: 50%;
+
+      background:
+        #151515;
+
+      transition:
+        transform 1500ms
+        cubic-bezier(
+          0.76,
+          0,
+          0.24,
+          1
+        );
+    }
+
+
+    .window-panel-left {
+      left: 0;
+
+      transform:
+        translateX(0);
+    }
+
+
+    .window-panel-right {
+      right: 0;
+
+      transform:
+        translateX(0);
+    }
+
+
+    /* Opening */
+
+    .contact-section.is-open
+    .window-panel-left {
+      transform:
+        translateX(-100%);
+    }
+
+    .contact-section.is-open
+    .window-panel-right {
+      transform:
+        translateX(100%);
+    }
+
+
+    /* Center line */
+
+    .window-center-line {
+      position: absolute;
+
+      top: 0;
+      bottom: 0;
+
+      left: 50%;
+
+      width: 1px;
+
+      background:
+        rgba(255,255,255,0.12);
+
+      transform:
+        scaleY(1);
+
+      transform-origin:
+        center;
+
+      transition:
+        opacity 500ms ease,
+        transform 1000ms var(--ease);
+    }
+
+    .contact-section.is-open
+    .window-center-line {
+      opacity: 0;
+
+      transform:
+        scaleY(0);
+    }
+
+
+    /* Content initially hidden */
+
+    .contact-content {
+      opacity: 0;
+
+      transform:
+        scale(0.94)
+        translateY(20px);
+
+      transition:
+        opacity 900ms ease 650ms,
+        transform 1200ms var(--ease) 550ms;
+    }
+
+
+    .contact-section.is-open
+    .contact-content {
+      opacity: 1;
+
+      transform:
+        scale(1)
+        translateY(0);
+    }
+
+
+    /* LET'S TALK text */
+
+    .contact-title {
+      clip-path:
+        inset(0 0 100% 0);
+
+      transform:
+        translateY(20px);
+
+      transition:
+        clip-path 1200ms
+        cubic-bezier(
+          0.76,
+          0,
+          0.24,
+          1
+        ) 650ms,
+
+        transform 1200ms var(--ease) 650ms;
+    }
+
+    .contact-section.is-open
+    .contact-title {
+      clip-path:
+        inset(0 0 0 0);
+
+      transform:
+        translateY(0);
+    }
+
+
+    /* Contact CTA */
+
+    .contact-button {
+      opacity: 0;
+
+      transform:
+        translateY(15px);
+
+      transition:
+        opacity 600ms ease 1100ms,
+        transform 700ms var(--ease) 1100ms;
+    }
+
+    .contact-section.is-open
+    .contact-button {
+      opacity: 1;
+
+      transform:
+        translateY(0);
+    }
+
+
+    /* =========================================================
+       MAGNETIC BUTTON
+    ========================================================== */
+
+    .magnetic-button {
+      transition:
+        transform 300ms var(--ease),
+        background-color 300ms ease;
+    }
+
+
+    /* =========================================================
+       MOBILE MENU
+    ========================================================== */
+
+    .mobile-menu {
+      opacity: 0;
+
+      pointer-events:
+        none;
+
+      transform:
+        translateY(-10px);
+
+      transition:
+        opacity 300ms ease,
+        transform 300ms var(--ease);
+    }
+
+    .mobile-menu.open {
+      opacity: 1;
+
+      pointer-events:
+        auto;
+
+      transform:
+        translateY(0);
+    }
+
+
+    /* =========================================================
+       CUSTOM CURSOR
+    ========================================================== */
+
+    .cursor-dot {
+      position: fixed;
+
+      width: 9px;
+      height: 9px;
+
+      border-radius: 50%;
+
+      background:
+        var(--black);
+
+      pointer-events:
+        none;
+
+      z-index: 9999;
+
+      transform:
+        translate(-50%,-50%);
+
+      transition:
+        width 250ms var(--ease),
+        height 250ms var(--ease);
+    }
+
+    .cursor-dot.hovering {
+      width: 22px;
+      height: 22px;
+    }
+
+
+    /* =========================================================
+       FILTER
+    ========================================================== */
+
+    .filter-button {
+      transition:
+        color 250ms ease;
+    }
+
+    .filter-button.active {
+      color:
+        var(--black);
+
+      font-weight:
+        600;
+    }
+
+
+    /* =========================================================
+       TABLET / MOBILE — ACCORDION + SERVICE ROWS
+    ========================================================== */
+
+    @media (max-width: 1023px) {
+
+      .skills-accordion {
+        flex-direction: column;
+
+        height: auto;
+      }
+
+      .skill-slice,
+      .skill-slice.is-open {
+        flex: none;
+
+        flex-direction: column;
+      }
+
+      .skill-slice-label {
+        writing-mode: horizontal-tb;
+
+        transform: none;
+
+        width: 100%;
+
+        justify-content: flex-start;
+
+        padding: 16px 18px;
+
+        border-right: 0;
+
+        border-bottom: 1px solid var(--gray-200);
+      }
+
+      .skill-slice-body {
+        max-height: 0;
+
+        opacity: 0;
+
+        overflow: hidden;
+
+        padding: 0 18px;
+
+        transition:
+          max-height 250ms var(--ease),
+          opacity 200ms var(--ease),
+          padding 250ms var(--ease);
+      }
+
+      .skill-slice.is-open .skill-slice-body {
+        max-height: 500px;
+
+        opacity: 1;
+
+        padding: 14px 18px 22px;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .skill-slice-body {
+          transition:
+            opacity 150ms ease,
+            padding 150ms ease;
+        }
+        .skill-slice.is-open .skill-slice-body {
+          max-height: none;
+        }
+      }
+
+      .service-detail {
+        max-height: 200px;
+      }
+
+    }
+
+
+    /* =========================================================
+       MOBILE
+    ========================================================== */
+
+    @media (max-width: 900px) {
+
+      .portfolio-frame {
+        width:
+          calc(100% - 20px);
+
+        margin:
+          10px auto;
+      }
+
+      .hero-name {
+        font-size:
+          clamp(
+            2.5rem,
+            8vw,
+            6rem
+          );
+      }
+
+    }
+
+
+    @media (max-width: 640px) {
+
+      .portfolio-frame {
+        width: 100%;
+
+        margin: 0;
+
+        border: 0;
+      }
+
+      .hero-name {
+        font-size:
+          clamp(
+            2.25rem,
+            9.4vw,
+            4.5rem
+          );
+      }
+
+      .cursor-dot {
+        display:
+          none;
+      }
+
+      .service-row:hover {
+        padding-left:
+          0;
+
+        padding-right:
+          0;
+      }
+
+      .experience-item {
+        transform:
+          translateY(30px);
+      }
+
+      .experience-item.is-visible {
+        transform:
+          translateY(0);
+      }
+
+    }
+
+
+    /* =========================================================
+       REDUCED MOTION
+    ========================================================== */
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        scroll-behavior:
+          auto !important;
+
+        animation-duration:
+          0.01ms !important;
+
+        animation-iteration-count:
+          1 !important;
+
+        transition-duration:
+          0.01ms !important;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- =========================================================
+       CUSTOM CURSOR
+  ========================================================== -->
+
+  <div
+    id="cursor"
+    class="cursor-dot hidden lg:block"
+  ></div>
+
+
+  <!-- =========================================================
+       MAIN FRAME
+  ========================================================== -->
+
+  <main class="portfolio-frame overflow-x-clip">
+
+
+    <!-- =======================================================
+         HERO
+    ======================================================== -->
+
+    <section
+      id="home"
+      class="hero relative min-h-[760px] overflow-hidden px-6 py-7 sm:px-10 lg:px-14"
+    >
+
+
+      <!-- NAV -->
+
+      <header
+        class="relative z-50 flex items-center justify-between"
+      >
+
+        <div
+          class="flex items-center gap-2 rounded-full border border-[#e2e2e2] bg-white px-4 py-2.5 text-[11px] font-medium"
+        >
+
+          <span
+            class="h-2 w-2 rounded-full bg-[#20b965]"
+          ></span>
+
+          Available for New Project
+
+        </div>
+
+
+        <nav
+          class="hidden items-center gap-9 text-[12px] font-medium md:flex"
+        >
+
+          <a
+            href="#work"
+            class="nav-link"
+          >
+            Work
+            <sup class="ml-1 text-[#999]">
+              04
+            </sup>
+          </a>
+
+          <a
+            href="#about"
+            class="nav-link"
+          >
+            About
+          </a>
+
+          <a
+            href="#skills"
+            class="nav-link"
+          >
+            Skills
+          </a>
+
+          <a
+            href="#experience"
+            class="nav-link"
+          >
+            Experience
+          </a>
+
+          <a
+            href="#journey"
+            class="nav-link"
+          >
+            Journey
+          </a>
+
+          <a
+            href="#services"
+            class="nav-link"
+          >
+            Services
+          </a>
+
+        </nav>
+
+
+        <a
+          href="#contact"
+          data-magnetic
+          class="magnetic-button rounded-full bg-[#151515] px-5 py-3 text-[11px] font-medium text-white"
+        >
+          Let's Talk ↗
+        </a>
+
+
+        <button
+          id="menuButton"
+          class="ml-2 flex h-10 w-10 items-center justify-center rounded-full border border-[#ddd] md:hidden"
+          aria-label="Open navigation"
+          aria-expanded="false"
+        >
+          <span id="menuIcon">
+            +
+          </span>
+        </button>
+
+      </header>
+
+
+      <!-- MOBILE MENU -->
+
+      <div
+        id="mobileMenu"
+        class="mobile-menu absolute left-6 right-6 top-[90px] z-50 border border-[#ddd] bg-white p-5 md:hidden"
+      >
+
+        <nav class="flex flex-col">
+
+          <a
+            href="#work"
+            class="border-b border-[#eee] py-4 text-[14px]"
+          >
+            Work
+          </a>
+
+          <a
+            href="#about"
+            class="border-b border-[#eee] py-4 text-[14px]"
+          >
+            About
+          </a>
+
+          <a
+            href="#skills"
+            class="border-b border-[#eee] py-4 text-[14px]"
+          >
+            Skills
+          </a>
+
+          <a
+            href="#experience"
+            class="border-b border-[#eee] py-4 text-[14px]"
+          >
+            Experience
+          </a>
+
+          <a
+            href="#journey"
+            class="border-b border-[#eee] py-4 text-[14px]"
+          >
+            Journey
+          </a>
+
+          <a
+            href="#services"
+            class="border-b border-[#eee] py-4 text-[14px]"
+          >
+            Services
+          </a>
+
+          <a
+            href="#contact"
+            class="py-4 text-[14px]"
+          >
+            Contact ↗
+          </a>
+
+        </nav>
+
+      </div>
+
+
+      <!-- HERO NAME -->
+
+      <div
+        id="heroNameReveal"
+        class="hero-curtain relative z-10 mt-28 sm:mt-32 lg:mt-36"
+      >
+
+        <div class="hero-curtain-content">
+
+        <h1
+          class="hero-name display-text text-center font-bold uppercase"
+        >
+
+          <span class="outline-text">
+            MUHAMMAD
+          </span>
+
+          <span>
+            ILHAM
+          </span>
+
+        </h1>
+
+        </div>
+
+      </div>
+
+
+      <!-- HERO VISUAL -->
+
+      <div
+        class="relative mt-10 min-h-[460px] sm:min-h-[500px] lg:min-h-[520px]"
+      >
+
+
+        <!-- LEFT INFO -->
+
+        <div
+          id="heroTextReveal"
+          class="hero-curtain absolute left-0 top-16 z-30 hidden max-w-[280px] lg:block"
+        >
+
+          <div class="hero-curtain-content">
+
+          <p
+            class="text-[11px] uppercase tracking-[0.1em] text-[#888]"
+          >
+            Digital Designer
+          </p>
+
+          <h2
+            class="mt-3 text-[24px] font-medium tracking-[-0.05em]"
+          >
+            UI/UX Designer
+          </h2>
+
+          <p
+            class="mt-4 text-[13px] leading-[1.6] text-[#666]"
+          >
+            I design digital experiences that
+            balance clarity, usability, and
+            strong visual direction.
+          </p>
+
+          <a
+            href="#work"
+            class="mt-6 inline-flex rounded-full bg-[#151515] px-5 py-3 text-[11px] font-medium text-white transition hover:bg-[#333]"
+          >
+            Explore Work ↗
+          </a>
+
+          </div>
+
+        </div>
+
+
+        <!-- MOBILE INFO -->
+
+        <div
+          class="reveal relative z-30 mb-8 lg:hidden"
+        >
+
+          <p
+            class="text-[11px] uppercase tracking-[0.1em] text-[#888]"
+          >
+            Digital Designer
+          </p>
+
+          <h2
+            class="mt-2 text-[22px] font-medium tracking-[-0.04em]"
+          >
+            UI/UX Designer
+          </h2>
+
+          <p
+            class="mt-3 max-w-[350px] text-[13px] leading-[1.6] text-[#666]"
+          >
+            Designing digital experiences that
+            are clear, useful, expressive,
+            and intentional.
+          </p>
+
+        </div>
+
+
+        <!-- PERSON -->
+
+        <div
+          class="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex justify-center"
+        >
+
+          <img
+            src="assets/profile.png"
+            alt="Muhammad Ilham"
+            class="hero-person h-[420px] w-auto object-contain object-bottom sm:h-[500px] lg:h-[560px]"
+          />
+
+        </div>
+
+
+        <!-- SOCIAL -->
+
+        <div
+          class="reveal absolute bottom-5 right-0 z-30 hidden w-[130px] flex-col gap-2 lg:flex"
+        >
+
+          <a
+            href="#"
+            class="flex items-center justify-between rounded-full border border-[#dedede] bg-white px-4 py-3 text-[10px] transition hover:border-[#aaa]"
+          >
+            Dribbble
+            <span>↗</span>
+          </a>
+
+          <a
+            href="#"
+            class="flex items-center justify-between rounded-full border border-[#dedede] bg-white px-4 py-3 text-[10px] transition hover:border-[#aaa]"
+          >
+            Instagram
+            <span>↗</span>
+          </a>
+
+          <a
+            href="#"
+            class="flex items-center justify-between rounded-full border border-[#dedede] bg-white px-4 py-3 text-[10px] transition hover:border-[#aaa]"
+          >
+            LinkedIn
+            <span>↗</span>
+          </a>
+
+          <a
+            href="#"
+            class="flex items-center justify-between rounded-full border border-[#dedede] bg-white px-4 py-3 text-[10px] transition hover:border-[#aaa]"
+          >
+            Behance
+            <span>↗</span>
+          </a>
+
+        </div>
+
+
+        <!-- MOBILE SOCIAL -->
+
+        <div
+          class="relative z-30 mt-5 flex flex-wrap gap-2 lg:hidden"
+        >
+
+          <a
+            href="#"
+            class="rounded-full border border-[#ddd] bg-white px-4 py-2 text-[10px]"
+          >
+            Instagram ↗
+          </a>
+
+          <a
+            href="#"
+            class="rounded-full border border-[#ddd] bg-white px-4 py-2 text-[10px]"
+          >
+            LinkedIn ↗
+          </a>
+
+          <a
+            href="#"
+            class="rounded-full border border-[#ddd] bg-white px-4 py-2 text-[10px]"
+          >
+            Behance ↗
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         MARQUEE
+    ======================================================== -->
+
+    <div
+      class="overflow-hidden border-y border-[#e5e5e5] py-4"
+    >
+
+      <div
+        class="marquee-track text-[11px] uppercase tracking-[0.15em] text-[#777]"
+      >
+
+        <span class="px-8">
+          UI/UX DESIGN
+        </span>
+
+        <span>•</span>
+
+        <span class="px-8">
+          DIGITAL PRODUCT
+        </span>
+
+        <span>•</span>
+
+        <span class="px-8">
+          WEB DESIGN
+        </span>
+
+        <span>•</span>
+
+        <span class="px-8">
+          VISUAL DESIGN
+        </span>
+
+        <span>•</span>
+
+        <span class="px-8">
+          UI/UX DESIGN
+        </span>
+
+        <span>•</span>
+
+        <span class="px-8">
+          DIGITAL PRODUCT
+        </span>
+
+        <span>•</span>
+
+        <span class="px-8">
+          WEB DESIGN
+        </span>
+
+        <span>•</span>
+
+        <span class="px-8">
+          VISUAL DESIGN
+        </span>
+
+        <span>•</span>
+
+      </div>
+
+    </div>
+
+
+    <!-- =======================================================
+         SELECTED WORK
+    ======================================================== -->
+
+    <section
+      id="work"
+      class="relative border-b border-[#e5e5e5] px-6 py-28 sm:px-10 lg:px-14 lg:py-36"
+    >
+
+      <div
+        class="pointer-events-none absolute inset-0 overflow-hidden"
+        aria-hidden="true"
+      >
+
+        <div
+          class="absolute left-1/2 top-12 -translate-x-1/2 select-none whitespace-nowrap text-[18vw] font-bold uppercase tracking-[-0.1em] text-[#f0f0f0]"
+        >
+          PORTFOLIO
+        </div>
+
+      </div>
+
+
+      <div class="relative z-10">
+
+        <div
+          class="reveal text-center"
+        >
+
+          <h2
+            class="section-heading text-[44px] font-medium sm:text-[56px] lg:text-[68px]"
+          >
+            /SELECTED WORK
+          </h2>
+
+          <p
+            class="mx-auto mt-5 max-w-[470px] text-[13px] leading-[1.65] text-[#666]"
+          >
+            A selection of digital products,
+            interfaces, and visual explorations.
+          </p>
+
+        </div>
+
+
+        <div
+          class="reveal mt-14 flex flex-col justify-between gap-5 border-b border-[#ddd] pb-5 sm:flex-row sm:items-center"
+        >
+
+          <div
+            class="flex flex-wrap gap-6 text-[12px]"
+          >
+
+            <button
+              class="filter-button active"
+              data-filter="all"
+            >
+              All
+            </button>
+
+            <button
+              class="filter-button text-[#888]"
+              data-filter="web"
+            >
+              Web
+            </button>
+
+            <button
+              class="filter-button text-[#888]"
+              data-filter="product"
+            >
+              Product
+            </button>
+
+          </div>
+
+          <a
+            href="#contact"
+            class="w-fit rounded-full border border-[#ddd] px-5 py-3 text-[10px] font-medium transition hover:bg-[#151515] hover:text-white"
+          >
+            Start a Project ↗
+          </a>
+
+        </div>
+
+
+        <div
+          id="projectGrid"
+          class="mt-10 flex flex-col gap-6"
+        >
+
+
+          <!-- MOBILE STACKED CARDS — populated by JS -->
+
+          <div
+            class="project-stack"
+            id="projectStack"
+          >
+
+            <div
+              class="stack-stage"
+              id="stackStage"
+              role="button"
+              tabindex="0"
+              aria-label="Show next project"
+            ></div>
+
+            <div
+              class="stack-content"
+              id="stackContent"
+              aria-live="polite"
+            ></div>
+
+          </div>
+
+
+          <!-- PROJECT 01 -->
+
+          <article
+            class="work-stack-item project-item group relative overflow-hidden border border-[#e5e5e5] bg-white lg:min-h-[74vh]"
+            data-category="web"
+          >
+
+            <div class="grid work-entrance lg:grid-cols-[0.85fr_1.6fr]">
+
+              <div
+                class="flex flex-col justify-between p-6 sm:p-8 lg:p-10"
+              >
+
+                <div>
+
+                  <span class="text-[11px] tracking-[0.1em] text-[#999]">
+                    01
+                  </span>
+
+                  <h3
+                    class="mt-6 text-[clamp(30px,3.6vw,54px)] font-medium uppercase leading-[0.9] tracking-[-0.06em]"
+                  >
+                    Canon
+                    <br />
+                    AE-1
+                  </h3>
+
+                  <p
+                    class="mt-5 text-[11px] uppercase tracking-[0.12em] text-[#888]"
+                  >
+                    Web Design / UI/UX
+                  </p>
+
+                  <p
+                    class="mt-5 max-w-[330px] text-[13px] leading-[1.65] text-[#666]"
+                  >
+                    Bringing timeless photography into the digital age.
+                  </p>
+
+                </div>
+
+                <a
+                  href="https://canon-ae-1.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-[#151515] px-6 py-3.5 text-[11px] font-medium text-white transition-colors duration-300 hover:bg-[#333]"
+                >
+                  VIEW PROJECT
+                  <span
+                    class="transition-transform duration-500 ease-out group-hover:-translate-y-1 group-hover:translate-x-1"
+                  >
+                    ↗
+                  </span>
+                </a>
+
+              </div>
+
+              <div
+                class="work-media relative min-h-[300px] aspect-[9/16] overflow-hidden bg-[#e9e9e9] md:aspect-[16/9]"
+              >
+
+                <picture>
+                  <source
+                    media="(max-width: 767px)"
+                    srcset="assets/canon-ae-1-mobile.jpg"
+                  />
+
+                  <img
+                    src="assets/canon-ae-1-desktop.jpg"
+                    alt="Canon AE-1 website preview"
+                    loading="lazy"
+                    decoding="async"
+                    class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                </picture>
+
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <!-- PROJECT 02 -->
+
+          <article
+            class="work-stack-item project-item group relative overflow-hidden border border-[#e5e5e5] bg-white lg:min-h-[74vh]"
+            data-category="web"
+          >
+
+            <div class="grid lg:grid-cols-[0.85fr_1.6fr]">
+
+              <div
+                class="flex flex-col justify-between p-6 sm:p-8 lg:p-10"
+              >
+
+                <div>
+
+                  <span class="text-[11px] tracking-[0.1em] text-[#999]">
+                    02
+                  </span>
+
+                  <h3
+                    class="mt-6 text-[clamp(30px,3.6vw,54px)] font-medium uppercase leading-[0.9] tracking-[-0.06em]"
+                  >
+                    Kameswara
+                    <br />
+                    Sekartaji
+                  </h3>
+
+                  <p
+                    class="mt-5 text-[11px] uppercase tracking-[0.12em] text-[#888]"
+                  >
+                    Web Design / UI/UX
+                  </p>
+
+                  <p
+                    class="mt-5 max-w-[330px] text-[13px] leading-[1.65] text-[#666]"
+                  >
+                    Digital experience for Kameswara Sekartaji
+                  </p>
+
+                </div>
+
+                <a
+                  href="https://organisasi-pramuka.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-[#151515] px-6 py-3.5 text-[11px] font-medium text-white transition-colors duration-300 hover:bg-[#333]"
+                >
+                  VIEW PROJECT
+                  <span
+                    class="transition-transform duration-500 ease-out group-hover:-translate-y-1 group-hover:translate-x-1"
+                  >
+                    ↗
+                  </span>
+                </a>
+
+              </div>
+
+              <div
+                class="work-media relative min-h-[300px] aspect-[9/16] overflow-hidden bg-[#e9e9e9] md:aspect-[16/9]"
+              >
+
+                <picture>
+                  <source
+                    media="(max-width: 767px)"
+                    srcset="assets/project-2-mobile.jpg"
+                  />
+
+                  <img
+                    src="assets/project-2-desktop.jpg"
+                    alt="Kameswara Sekartaji website preview"
+                    loading="lazy"
+                    decoding="async"
+                    class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                </picture>
+
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <!-- PROJECT 03 -->
+
+          <article
+            class="work-stack-item project-item group relative overflow-hidden border border-[#e5e5e5] bg-white lg:min-h-[74vh]"
+            data-category="web"
+          >
+
+            <div class="grid lg:grid-cols-[0.85fr_1.6fr]">
+
+              <div
+                class="flex flex-col justify-between p-6 sm:p-8 lg:p-10"
+              >
+
+                <div>
+
+                  <span class="text-[11px] tracking-[0.1em] text-[#999]">
+                    03
+                  </span>
+
+                  <h3
+                    class="mt-6 text-[clamp(30px,3.6vw,54px)] font-medium uppercase leading-[0.9] tracking-[-0.06em]"
+                  >
+                    Katro
+                    <br />
+                    Barbershop
+                  </h3>
+
+                  <p
+                    class="mt-5 text-[11px] uppercase tracking-[0.12em] text-[#888]"
+                  >
+                    Web Design / UI/UX
+                  </p>
+
+                  <p
+                    class="mt-5 max-w-[330px] text-[13px] leading-[1.65] text-[#666]"
+                  >
+                    Modern barbershop website experience
+                  </p>
+
+                </div>
+
+                <a
+                  href="https://katro-barbershop.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-[#151515] px-6 py-3.5 text-[11px] font-medium text-white transition-colors duration-300 hover:bg-[#333]"
+                >
+                  VIEW PROJECT
+                  <span
+                    class="transition-transform duration-500 ease-out group-hover:-translate-y-1 group-hover:translate-x-1"
+                  >
+                    ↗
+                  </span>
+                </a>
+
+              </div>
+
+              <div
+                class="work-media relative min-h-[300px] aspect-[9/16] overflow-hidden bg-[#e9e9e9] md:aspect-[16/9]"
+              >
+
+                <picture>
+                  <source
+                    media="(max-width: 767px)"
+                    srcset="assets/project-3-mobile.jpg"
+                  />
+
+                  <img
+                    src="assets/project-3-desktop.jpg"
+                    alt="Katro Barbershop website preview"
+                    loading="lazy"
+                    decoding="async"
+                    class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                </picture>
+
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <!-- PROJECT 04 -->
+
+          <article
+            class="work-stack-item project-item group relative overflow-hidden border border-[#e5e5e5] bg-white lg:min-h-[74vh]"
+            data-category="product"
+          >
+
+            <div class="grid lg:grid-cols-[0.85fr_1.6fr]">
+
+              <div
+                class="flex flex-col justify-between p-6 sm:p-8 lg:p-10"
+              >
+
+                <div>
+
+                  <span class="text-[11px] tracking-[0.1em] text-[#999]">
+                    04
+                  </span>
+
+                  <h3
+                    class="mt-6 text-[clamp(30px,3.6vw,54px)] font-medium uppercase leading-[0.9] tracking-[-0.06em]"
+                  >
+                    Pribadi
+                    <br />
+                    Finance
+                  </h3>
+
+                  <p
+                    class="mt-5 text-[11px] uppercase tracking-[0.12em] text-[#888]"
+                  >
+                    Product / Dashboard
+                  </p>
+
+                  <p
+                    class="mt-5 max-w-[330px] text-[13px] leading-[1.65] text-[#666]"
+                  >
+                    Personal finance management experience
+                  </p>
+
+                </div>
+
+                <a
+                  href="https://finance-dashboard-snowy-gamma.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-[#151515] px-6 py-3.5 text-[11px] font-medium text-white transition-colors duration-300 hover:bg-[#333]"
+                >
+                  VIEW PROJECT
+                  <span
+                    class="transition-transform duration-500 ease-out group-hover:-translate-y-1 group-hover:translate-x-1"
+                  >
+                    ↗
+                  </span>
+                </a>
+
+              </div>
+
+              <div
+                class="work-media relative min-h-[300px] aspect-[9/16] overflow-hidden bg-[#e9e9e9] md:aspect-[16/9]"
+              >
+
+                <picture>
+                  <source
+                    media="(max-width: 767px)"
+                    srcset="assets/project-4-mobile.jpg"
+                  />
+
+                  <img
+                    src="assets/project-4-desktop.jpg"
+                    alt="Pribadi Finance dashboard preview"
+                    loading="lazy"
+                    decoding="async"
+                    class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                </picture>
+
+              </div>
+
+            </div>
+
+          </article>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         ABOUT
+    ======================================================== -->
+
+    <section
+      id="about"
+      class="border-b border-[#e5e5e5] px-6 py-28 sm:px-10 lg:px-14 lg:py-36"
+    >
+
+      <div
+        class="grid gap-16 lg:grid-cols-[0.7fr_1.3fr]"
+      >
+
+        <div class="reveal">
+
+          <h2
+            class="section-heading text-[50px] font-medium sm:text-[64px]"
+          >
+            /ABOUT ME
+          </h2>
+
+          <p
+            class="mt-7 max-w-[250px] text-[12px] leading-[1.65] text-[#777]"
+          >
+            Student of TKJ, building toward
+            web development, AI, and
+            computer networking.
+          </p>
+
+        </div>
+
+
+        <div class="reveal">
+
+          <p
+            class="max-w-[1000px] text-[clamp(26px,3vw,42px)] font-medium leading-[1.1] tracking-[-0.055em]"
+          >
+            I am a TKJ student currently
+            learning full-stack web
+            development through vibe coding,
+            with a focus on UI/UX and
+            frontend development.
+          </p>
+
+
+          <p
+            class="mt-9 max-w-[620px] text-[14px] leading-[1.6] text-[#555]"
+          >
+            Alongside frontend work I study
+            backend development, databases,
+            and computer networking — from
+            LAN and TCP/IP to MikroTik —
+            while learning how AI systems
+            are built.
+          </p>
+
+
+          <!-- METADATA -->
+
+          <dl class="mt-14 border-t border-[#ddd]">
+
+            <div
+              class="grid grid-cols-1 gap-1 border-b border-[#ddd] py-5 sm:grid-cols-[170px_1fr] sm:gap-6"
+            >
+
+              <dt
+                class="text-[10px] uppercase tracking-[0.14em] text-[#999]"
+              >
+                Name
+              </dt>
+
+              <dd class="text-[15px] tracking-[-0.02em]">
+                Muhammad Ilham
+              </dd>
+
+            </div>
+
+
+            <div
+              class="grid grid-cols-1 gap-1 border-b border-[#ddd] py-5 sm:grid-cols-[170px_1fr] sm:gap-6"
+            >
+
+              <dt
+                class="text-[10px] uppercase tracking-[0.14em] text-[#999]"
+              >
+                Status
+              </dt>
+
+              <dd class="text-[15px] tracking-[-0.02em]">
+                Student
+              </dd>
+
+            </div>
+
+
+            <div
+              class="grid grid-cols-1 gap-1 border-b border-[#ddd] py-5 sm:grid-cols-[170px_1fr] sm:gap-6"
+            >
+
+              <dt
+                class="text-[10px] uppercase tracking-[0.14em] text-[#999]"
+              >
+                Field
+              </dt>
+
+              <dd
+                class="text-[15px] leading-[1.5] tracking-[-0.02em]"
+              >
+                Web Development / Full Stack /
+                Networking / AI Specialist /
+                AI Engineer
+              </dd>
+
+            </div>
+
+
+            <div
+              class="grid grid-cols-1 gap-1 border-b border-[#ddd] py-5 sm:grid-cols-[170px_1fr] sm:gap-6"
+            >
+
+              <dt
+                class="text-[10px] uppercase tracking-[0.14em] text-[#999]"
+              >
+                Location
+              </dt>
+
+              <dd class="text-[15px] tracking-[-0.02em]">
+                Kediri
+              </dd>
+
+            </div>
+
+
+            <div
+              class="grid grid-cols-1 gap-1 border-b border-[#ddd] py-5 sm:grid-cols-[170px_1fr] sm:gap-6"
+            >
+
+              <dt
+                class="text-[10px] uppercase tracking-[0.14em] text-[#999]"
+              >
+                Education
+              </dt>
+
+              <dd class="text-[15px] tracking-[-0.02em]">
+                SMK Pawyatan Daha 2
+              </dd>
+
+            </div>
+
+          </dl>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         SKILLS
+    ======================================================== -->
+
+    <section
+      id="skills"
+      class="border-b border-[#e5e5e5] px-6 py-28 sm:px-10 lg:px-14 lg:py-36"
+    >
+
+      <div
+        class="grid gap-14 lg:grid-cols-[0.7fr_1.3fr]"
+      >
+
+        <div class="reveal">
+
+          <h2
+            class="section-heading text-[50px] font-medium sm:text-[64px]"
+          >
+            /SKILLS
+          </h2>
+
+          <p
+            class="mt-7 max-w-[250px] text-[12px] leading-[1.65] text-[#777]"
+          >
+            The technologies I work with
+            across frontend, backend,
+            data, and networks.
+          </p>
+
+        </div>
+
+
+        <div class="reveal min-w-0">
+
+          <div
+            id="skillsAccordion"
+            class="skills-accordion w-full"
+          >
+
+
+            <!-- FRONTEND -->
+
+            <div class="skill-slice is-open">
+
+              <span class="skill-slice-label">
+                Frontend
+              </span>
+
+              <div class="skill-slice-body">
+
+                <div class="skill-item">
+                  HTML <i></i>
+                </div>
+
+                <div class="skill-item">
+                  CSS <i></i>
+                </div>
+
+                <div class="skill-item">
+                  JavaScript <i></i>
+                </div>
+
+                <div class="skill-item">
+                  React <i></i>
+                </div>
+
+                <div class="skill-item">
+                  Next.js <i></i>
+                </div>
+
+                <div class="skill-item">
+                  Tailwind CSS <i></i>
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <!-- BACKEND -->
+
+            <div class="skill-slice">
+
+              <span class="skill-slice-label">
+                Backend
+              </span>
+
+              <div class="skill-slice-body">
+
+                <div class="skill-item">
+                  Node.js <i></i>
+                </div>
+
+                <div class="skill-item">
+                  Express <i></i>
+                </div>
+
+                <div class="skill-item">
+                  PHP <i></i>
+                </div>
+
+                <div class="skill-item">
+                  Laravel <i></i>
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <!-- DATABASE -->
+
+            <div class="skill-slice">
+
+              <span class="skill-slice-label">
+                Database
+              </span>
+
+              <div class="skill-slice-body">
+
+                <div class="skill-item">
+                  MySQL <i></i>
+                </div>
+
+                <div class="skill-item">
+                  PostgreSQL <i></i>
+                </div>
+
+                <div class="skill-item">
+                  MongoDB <i></i>
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <!-- TOOLS -->
+
+            <div class="skill-slice">
+
+              <span class="skill-slice-label">
+                Tools
+              </span>
+
+              <div class="skill-slice-body">
+
+                <div class="skill-item">
+                  Git <i></i>
+                </div>
+
+                <div class="skill-item">
+                  GitHub <i></i>
+                </div>
+
+                <div class="skill-item">
+                  VS Code <i></i>
+                </div>
+
+                <div class="skill-item">
+                  Figma <i></i>
+                </div>
+
+                <div class="skill-item">
+                  Canva <i></i>
+                </div>
+
+                <div class="skill-item">
+                  Framer <i></i>
+                </div>
+
+                <div class="skill-item">
+                  AI Agent <i></i>
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <!-- NETWORKING -->
+
+            <div class="skill-slice">
+
+              <span class="skill-slice-label">
+                Networking &amp; IT
+              </span>
+
+              <div class="skill-slice-body">
+
+                <div class="skill-item">
+                  MikroTik <i></i>
+                </div>
+
+                <div class="skill-item">
+                  LAN <i></i>
+                </div>
+
+                <div class="skill-item">
+                  TCP/IP <i></i>
+                </div>
+
+                <div class="skill-item">
+                  Windows <i></i>
+                </div>
+
+                <div class="skill-item">
+                  Hardware <i></i>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- TECH MARQUEE -->
+
+          <div
+            class="mt-8 overflow-hidden border-y border-[#e5e5e5] py-4"
+          >
+
+            <div
+              class="marquee-track text-[11px] uppercase tracking-[0.15em] text-[#777]"
+            >
+
+              <span class="px-6">React</span><span>•</span>
+              <span class="px-6">Next.js</span><span>•</span>
+              <span class="px-6">Tailwind CSS</span><span>•</span>
+              <span class="px-6">Node.js</span><span>•</span>
+              <span class="px-6">Laravel</span><span>•</span>
+              <span class="px-6">PostgreSQL</span><span>•</span>
+              <span class="px-6">MikroTik</span><span>•</span>
+              <span class="px-6">AI Agent</span><span>•</span>
+
+              <span class="px-6">React</span><span>•</span>
+              <span class="px-6">Next.js</span><span>•</span>
+              <span class="px-6">Tailwind CSS</span><span>•</span>
+              <span class="px-6">Node.js</span><span>•</span>
+              <span class="px-6">Laravel</span><span>•</span>
+              <span class="px-6">PostgreSQL</span><span>•</span>
+              <span class="px-6">MikroTik</span><span>•</span>
+              <span class="px-6">AI Agent</span><span>•</span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         EXPERIENCE
+    ======================================================== -->
+
+    <section
+      id="experience"
+      class="border-b border-[#e5e5e5] px-6 py-28 sm:px-10 lg:px-14 lg:py-36"
+    >
+
+      <div
+        class="grid gap-14 lg:grid-cols-[0.7fr_1.3fr]"
+      >
+
+
+        <!-- LEFT -->
+
+        <div class="reveal">
+
+          <h2
+            class="section-heading text-[48px] font-medium sm:text-[64px]"
+          >
+            /EXPERIENCE
+          </h2>
+
+          <p
+            class="mt-7 max-w-[270px] text-[12px] leading-[1.65] text-[#777]"
+          >
+            Roles held outside the classroom,
+            shaped by responsibility and
+            community.
+          </p>
+
+        </div>
+
+
+        <!-- RIGHT -->
+
+        <div class="reveal">
+
+          <div
+            class="flex flex-col justify-between gap-6 border-t border-[#ddd] pt-8 sm:flex-row sm:items-start"
+          >
+
+            <div>
+
+              <p
+                class="text-[11px] uppercase tracking-[0.14em] text-[#999]"
+              >
+                2024 – 2025
+              </p>
+
+              <h3
+                class="mt-5 text-[clamp(30px,3.6vw,50px)] font-medium uppercase leading-[0.95] tracking-[-0.06em]"
+              >
+                Purna Pramuka
+              </h3>
+
+              <p
+                class="mt-4 text-[13px] text-[#777]"
+              >
+                Role — Pemangku Adat
+              </p>
+
+              <p
+                class="mt-7 max-w-[520px] text-[14px] leading-[1.65] text-[#555]"
+              >
+                Sebagai pemangku adat.
+              </p>
+
+            </div>
+
+            <span
+              class="outline-text hidden text-[76px] font-bold leading-none sm:block"
+            >
+              01
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         EDUCATION
+    ======================================================== -->
+
+    <section
+      id="education"
+      class="border-b border-[#e5e5e5] px-6 py-28 sm:px-10 lg:px-14 lg:py-36"
+    >
+
+      <div
+        class="reveal flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between"
+      >
+
+        <div>
+
+          <h2
+            class="section-heading text-[44px] font-medium sm:text-[60px]"
+          >
+            /EDUCATION
+          </h2>
+
+          <p
+            class="mt-6 max-w-[430px] text-[13px] leading-[1.65] text-[#666]"
+          >
+            Teknologi Komputer dan Jaringan
+            at SMK Pawyatan Daha 2.
+          </p>
+
+        </div>
+
+        <p
+          class="outline-text text-[clamp(38px,7vw,104px)] font-bold leading-none"
+        >
+          2024–2027
+        </p>
+
+      </div>
+
+
+      <div
+        class="reveal mt-14 grid gap-8 border-t border-[#ddd] pt-8 md:grid-cols-3"
+      >
+
+        <div>
+
+          <p
+            class="text-[10px] uppercase tracking-[0.14em] text-[#999]"
+          >
+            Institution
+          </p>
+
+          <p
+            class="mt-3 text-[19px] font-medium tracking-[-0.04em]"
+          >
+            SMK Pawyatan Daha 2
+          </p>
+
+        </div>
+
+
+        <div>
+
+          <p
+            class="text-[10px] uppercase tracking-[0.14em] text-[#999]"
+          >
+            Field
+          </p>
+
+          <p
+            class="mt-3 text-[19px] font-medium tracking-[-0.04em]"
+          >
+            TKJ
+            <span
+              class="block text-[13px] font-normal leading-[1.5] text-[#777]"
+            >
+              Teknologi Komputer dan Jaringan
+            </span>
+          </p>
+
+        </div>
+
+
+        <div>
+
+          <p
+            class="text-[10px] uppercase tracking-[0.14em] text-[#999]"
+          >
+            Focus
+          </p>
+
+          <div class="mt-3 flex flex-wrap gap-2">
+
+            <span
+              class="rounded-full border border-[#ddd] px-3.5 py-2 text-[11px]"
+            >
+              Software
+            </span>
+
+            <span
+              class="rounded-full border border-[#ddd] px-3.5 py-2 text-[11px]"
+            >
+              Hardware
+            </span>
+
+            <span
+              class="rounded-full border border-[#ddd] px-3.5 py-2 text-[11px]"
+            >
+              Jaringan
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         MY JOURNEY
+    ======================================================== -->
+
+    <section
+      id="journey"
+      class="border-b border-[#e5e5e5] px-6 py-28 sm:px-10 lg:px-14 lg:py-36"
+    >
+
+      <div
+        class="grid gap-14 lg:grid-cols-[0.7fr_1.3fr]"
+      >
+
+        <div class="reveal">
+
+          <h2
+            class="section-heading text-[48px] font-medium sm:text-[64px]"
+          >
+            /MY JOURNEY
+          </h2>
+
+          <p
+            class="mt-7 max-w-[250px] text-[12px] leading-[1.65] text-[#777]"
+          >
+            From vocational school toward
+            building with code and AI.
+          </p>
+
+        </div>
+
+
+        <div
+          id="journeyTimeline"
+          class="experience-timeline relative"
+        >
+
+
+          <!-- Animated line -->
+
+          <div
+            class="experience-line absolute bottom-0 left-[7px] top-0 w-px bg-[#dedede]"
+          >
+
+            <div
+              class="experience-line-progress absolute left-0 top-0 w-full bg-[#151515]"
+            ></div>
+
+          </div>
+
+
+          <!-- STAGE 01 -->
+
+          <article
+            class="experience-item relative pl-12"
+            data-delay="0"
+          >
+
+            <span
+              class="experience-dot absolute left-0 top-2 flex h-[15px] w-[15px] items-center justify-center rounded-full border border-[#151515] bg-[#fafafa]"
+            >
+
+              <span
+                class="experience-dot-inner h-[5px] w-[5px] rounded-full bg-[#151515]"
+              ></span>
+
+            </span>
+
+
+            <div
+              class="border-t border-[#ddd] pb-14 pt-1"
+            >
+
+              <div
+                class="flex flex-col justify-between gap-3 sm:flex-row"
+              >
+
+                <div>
+
+                  <p
+                    class="experience-year text-[10px] uppercase tracking-[0.12em] text-[#999]"
+                  >
+                    2024
+                  </p>
+
+                  <h3
+                    class="mt-3 text-[25px] font-medium tracking-[-0.05em]"
+                  >
+                    SMK Pawyatan Daha 2
+                  </h3>
+
+                  <p
+                    class="mt-2 text-[11px] text-[#888]"
+                  >
+                    TKJ · 2024–2027
+                  </p>
+
+                </div>
+
+                <span
+                  class="experience-number text-[11px] text-[#aaa]"
+                >
+                  01
+                </span>
+
+              </div>
+
+
+              <p
+                class="mt-6 max-w-[560px] text-[13px] leading-[1.65] text-[#555]"
+              >
+                Started the Computer and
+                Networking Engineering program —
+                software, hardware, and
+                network fundamentals.
+              </p>
+
+
+              <div
+                class="mt-5 flex flex-wrap gap-2"
+              >
+
+                <span class="experience-tag">
+                  Software
+                </span>
+
+                <span class="experience-tag">
+                  Hardware
+                </span>
+
+                <span class="experience-tag">
+                  Jaringan
+                </span>
+
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <!-- STAGE 02 -->
+
+          <article
+            class="experience-item relative pl-12"
+            data-delay="180"
+          >
+
+            <span
+              class="experience-dot absolute left-0 top-2 flex h-[15px] w-[15px] items-center justify-center rounded-full border border-[#151515] bg-[#fafafa]"
+            >
+
+              <span
+                class="experience-dot-inner h-[5px] w-[5px] rounded-full bg-[#151515]"
+              ></span>
+
+            </span>
+
+
+            <div
+              class="border-t border-[#ddd] pb-14 pt-1"
+            >
+
+              <div
+                class="flex flex-col justify-between gap-3 sm:flex-row"
+              >
+
+                <div>
+
+                  <p
+                    class="experience-year text-[10px] uppercase tracking-[0.12em] text-[#999]"
+                  >
+                    2024 – 2025
+                  </p>
+
+                  <h3
+                    class="mt-3 text-[25px] font-medium tracking-[-0.05em]"
+                  >
+                    Purna Pramuka
+                  </h3>
+
+                  <p
+                    class="mt-2 text-[11px] text-[#888]"
+                  >
+                    Pemangku Adat
+                  </p>
+
+                </div>
+
+                <span
+                  class="experience-number text-[11px] text-[#aaa]"
+                >
+                  02
+                </span>
+
+              </div>
+
+
+              <p
+                class="mt-6 max-w-[560px] text-[13px] leading-[1.65] text-[#555]"
+              >
+                Sebagai pemangku adat.
+              </p>
+
+
+              <div
+                class="mt-5 flex flex-wrap gap-2"
+              >
+
+                <span class="experience-tag">
+                  Pemangku Adat
+                </span>
+
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <!-- STAGE 03 -->
+
+          <article
+            class="experience-item relative pl-12"
+            data-delay="360"
+          >
+
+            <span
+              class="experience-dot absolute left-0 top-2 flex h-[15px] w-[15px] items-center justify-center rounded-full border border-[#151515] bg-[#fafafa]"
+            >
+
+              <span
+                class="experience-dot-inner h-[5px] w-[5px] rounded-full bg-[#151515]"
+              ></span>
+
+            </span>
+
+
+            <div
+              class="border-y border-[#ddd] pb-14 pt-1"
+            >
+
+              <div
+                class="flex flex-col justify-between gap-3 sm:flex-row"
+              >
+
+                <div>
+
+                  <p
+                    class="experience-year text-[10px] uppercase tracking-[0.12em] text-[#999]"
+                  >
+                    Now
+                  </p>
+
+                  <h3
+                    class="mt-3 text-[25px] font-medium tracking-[-0.05em]"
+                  >
+                    Vibe Coding &amp; AI
+                  </h3>
+
+                  <p
+                    class="mt-2 text-[11px] text-[#888]"
+                  >
+                    Web Development · AI Agent
+                  </p>
+
+                </div>
+
+                <span
+                  class="experience-number text-[11px] text-[#aaa]"
+                >
+                  03
+                </span>
+
+              </div>
+
+
+              <p
+                class="mt-6 max-w-[560px] text-[13px] leading-[1.65] text-[#555]"
+              >
+                Learning full-stack web
+                development through vibe coding,
+                understanding how AI systems
+                develop, and building toward an
+                AI Specialist path.
+              </p>
+
+
+              <div
+                class="mt-5 flex flex-wrap gap-2"
+              >
+
+                <span class="experience-tag">
+                  Web Development
+                </span>
+
+                <span class="experience-tag">
+                  AI Agent
+                </span>
+
+                <span class="experience-tag">
+                  AI Engineer
+                </span>
+
+              </div>
+
+            </div>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         NOW — CURRENT FOCUS
+    ======================================================== -->
+
+    <section
+      id="now"
+      class="section-dark relative overflow-hidden px-6 py-28 sm:px-10 lg:px-14 lg:py-44"
+    >
+
+      <div
+        class="pointer-events-none absolute inset-0"
+        style="background:
+          radial-gradient(55% 45% at 18% 8%, rgba(255,255,255,0.07), transparent 70%),
+          radial-gradient(45% 40% at 88% 85%, rgba(255,255,255,0.05), transparent 70%);"
+        aria-hidden="true"
+      ></div>
+
+
+      <div class="relative z-10 mx-auto max-w-[1150px]">
+
+        <div class="reveal min-w-0">
+
+          <h2
+            class="section-heading text-[50px] font-medium sm:text-[64px]"
+          >
+            /NOW
+          </h2>
+
+          <p
+            class="mt-6 max-w-[420px] text-[13px] leading-[1.7] text-[#999]"
+          >
+            This is what I am working toward
+            right now.
+          </p>
+
+        </div>
+
+
+        <p
+          id="nowStatement"
+          class="reveal mt-14 text-[clamp(23px,3.3vw,44px)] font-medium leading-[1.28] tracking-[-0.04em]"
+        >
+          Right now I am building
+          <span
+            class="inline-pill"
+            style="background-image: url('https://picsum.photos/seed/careerpath/400/200');"
+          ></span>
+          an identity for a future career —
+          learning AI Agent, understanding
+          how AI systems develop, and
+          writing code
+          <span
+            class="inline-pill"
+            style="background-image: url('https://picsum.photos/seed/vibecoding/400/200');"
+          ></span>
+          through vibe coding with current
+          technology.
+        </p>
+
+
+        <div
+          class="reveal mt-16 grid border-t border-[#2c2c2c] sm:grid-cols-2"
+        >
+
+          <div
+            class="flex items-baseline gap-5 border-b border-[#2c2c2c] py-6 sm:pr-10"
+          >
+
+            <span class="text-[10px] text-[#777]">01</span>
+
+            <p class="text-[15px] tracking-[-0.02em]">
+              Building identity for a future career
+            </p>
+
+          </div>
+
+
+          <div
+            class="flex items-baseline gap-5 border-b border-[#2c2c2c] py-6 sm:pl-10"
+          >
+
+            <span class="text-[10px] text-[#777]">02</span>
+
+            <p class="text-[15px] tracking-[-0.02em]">
+              Learning AI Agent
+            </p>
+
+          </div>
+
+
+          <div
+            class="flex items-baseline gap-5 border-b border-[#2c2c2c] py-6 sm:pr-10"
+          >
+
+            <span class="text-[10px] text-[#777]">03</span>
+
+            <p class="text-[15px] tracking-[-0.02em]">
+              Understanding how AI systems develop
+            </p>
+
+          </div>
+
+
+          <div
+            class="flex items-baseline gap-5 border-b border-[#2c2c2c] py-6 sm:pl-10"
+          >
+
+            <span class="text-[10px] text-[#777]">04</span>
+
+            <p class="text-[15px] tracking-[-0.02em]">
+              Learning to become an AI Specialist
+            </p>
+
+          </div>
+
+
+          <div
+            class="flex items-baseline gap-5 border-b border-[#2c2c2c] py-6 sm:pr-10"
+          >
+
+            <span class="text-[10px] text-[#777]">05</span>
+
+            <p class="text-[15px] tracking-[-0.02em]">
+              Learning Vibe Coding with current technology
+            </p>
+
+          </div>
+
+
+          <div
+            class="flex items-baseline gap-5 border-b border-[#2c2c2c] py-6 sm:pl-10"
+          >
+
+            <span class="text-[10px] text-[#777]">06</span>
+
+            <p class="text-[15px] tracking-[-0.02em]">
+              Learning web development
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         WHAT I DO
+    ======================================================== -->
+
+    <section
+      id="services"
+      class="border-b border-[#e5e5e5] px-6 py-28 sm:px-10 lg:px-14 lg:py-36"
+    >
+
+      <div
+        class="grid gap-14 lg:grid-cols-[0.7fr_1.3fr]"
+      >
+
+        <div class="reveal">
+
+          <h2
+            class="section-heading text-[50px] font-medium sm:text-[64px]"
+          >
+            /WHAT I DO
+          </h2>
+
+          <p
+            class="mt-7 max-w-[250px] text-[12px] leading-[1.65] text-[#777]"
+          >
+            Four areas I keep returning to,
+            from interface to infrastructure.
+          </p>
+
+        </div>
+
+
+        <div class="reveal border-b border-[#ddd]">
+
+
+          <!-- 01 -->
+
+          <div
+            class="service-row-group group border-t border-[#ddd]"
+          >
+
+            <div
+              class="service-row flex cursor-pointer items-center justify-between py-7"
+            >
+
+              <div class="flex items-baseline gap-5">
+
+                <span
+                  class="text-[10px] text-[#999] transition-transform duration-500 ease-out group-hover:translate-x-1"
+                >
+                  01
+                </span>
+
+                <h3
+                  class="text-[22px] font-medium tracking-[-0.05em] transition-transform duration-500 ease-out sm:text-[26px] group-hover:translate-x-2"
+                >
+                  Web Development
+                </h3>
+
+              </div>
+
+              <span class="service-arrow">
+                ↗
+              </span>
+
+            </div>
+
+            <div class="service-detail">
+
+              <div class="flex flex-wrap gap-2 pb-7">
+
+                <span class="rounded-full border border-[#ddd] px-3.5 py-2 text-[11px]">
+                  Frontend
+                </span>
+
+                <span class="rounded-full border border-[#ddd] px-3.5 py-2 text-[11px]">
+                  Backend
+                </span>
+
+                <span class="rounded-full border border-[#ddd] px-3.5 py-2 text-[11px]">
+                  Database
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- 02 -->
+
+          <div
+            class="service-row-group group border-t border-[#ddd]"
+          >
+
+            <div
+              class="service-row flex cursor-pointer items-center justify-between py-7"
+            >
+
+              <div class="flex items-baseline gap-5">
+
+                <span
+                  class="text-[10px] text-[#999] transition-transform duration-500 ease-out group-hover:translate-x-1"
+                >
+                  02
+                </span>
+
+                <h3
+                  class="text-[22px] font-medium tracking-[-0.05em] transition-transform duration-500 ease-out sm:text-[26px] group-hover:translate-x-2"
+                >
+                  Frontend Development
+                </h3>
+
+              </div>
+
+              <span class="service-arrow">
+                ↗
+              </span>
+
+            </div>
+
+            <div class="service-detail">
+
+              <div class="flex flex-wrap gap-2 pb-7">
+
+                <span class="rounded-full border border-[#ddd] px-3.5 py-2 text-[11px]">
+                  UI/UX
+                </span>
+
+                <span class="rounded-full border border-[#ddd] px-3.5 py-2 text-[11px]">
+                  HTML
+                </span>
+
+                <span class="rounded-full border border-[#ddd] px-3.5 py-2 text-[11px]">
+                  CSS
+                </span>
+
+                <span class="rounded-full border border-[#ddd] px-3.5 py-2 text-[11px]">
+                  React
+                </span>
+
+                <span class="rounded-full border border-[#ddd] px-3.5 py-2 text-[11px]">
+                  Next.js
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- 03 -->
+
+          <div
+            class="service-row-group group border-t border-[#ddd]"
+          >
+
+            <div
+              class="service-row flex cursor-pointer items-center justify-between py-7"
+            >
+
+              <div class="flex items-baseline gap-5">
+
+                <span
+                  class="text-[10px] text-[#999] transition-transform duration-500 ease-out group-hover:translate-x-1"
+                >
+                  03
+                </span>
+
+                <h3
+                  class="text-[22px] font-medium tracking-[-0.05em] transition-transform duration-500 ease-out sm:text-[26px] group-hover:translate-x-2"
+                >
+                  Backend Development
+                </h3>
+
+              </div>
+
+              <span class="service-arrow">
+                ↗
+              </span>
+
+            </div>
+
+            <div class="service-detail">
+
+              <div class="flex flex-wrap gap-2 pb-7">
+
+                <span class="rounded-full border border-[#ddd] px-3.5 py-2 text-[11px]">
+                  Node.js
+                </span>
+
+                <span class="rounded-full border border-[#ddd] px-3.5 py-2 text-[11px]">
+                  Express
+                </span>
+
+                <span class="rounded-full border border-[#ddd] px-3.5 py-2 text-[11px]">
+                  PHP
+                </span>
+
+                <span class="rounded-full border border-[#ddd] px-3.5 py-2 text-[11px]">
+                  Laravel
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- 04 -->
+
+          <div
+            class="service-row-group group border-t border-[#ddd]"
+          >
+
+            <div
+              class="service-row flex cursor-pointer items-center justify-between py-7"
+            >
+
+              <div class="flex items-baseline gap-5">
+
+                <span
+                  class="text-[10px] text-[#999] transition-transform duration-500 ease-out group-hover:translate-x-1"
+                >
+                  04
+                </span>
+
+                <h3
+                  class="text-[22px] font-medium tracking-[-0.05em] transition-transform duration-500 ease-out sm:text-[26px] group-hover:translate-x-2"
+                >
+                  IT &amp; Networking
+                </h3>
+
+              </div>
+
+              <span class="service-arrow">
+                ↗
+              </span>
+
+            </div>
+
+            <div class="service-detail">
+
+              <div class="flex flex-wrap gap-2 pb-7">
+
+                <span class="rounded-full border border-[#ddd] px-3.5 py-2 text-[11px]">
+                  MikroTik
+                </span>
+
+                <span class="rounded-full border border-[#ddd] px-3.5 py-2 text-[11px]">
+                  Crimping
+                </span>
+
+                <span class="rounded-full border border-[#ddd] px-3.5 py-2 text-[11px]">
+                  Hardware
+                </span>
+
+                <span class="rounded-full border border-[#ddd] px-3.5 py-2 text-[11px]">
+                  Software PC
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         CURRENTLY LEARNING
+    ======================================================== -->
+
+    <section
+      id="learning"
+      class="border-b border-[#e5e5e5] px-6 py-28 sm:px-10 lg:px-14 lg:py-40"
+    >
+
+      <div class="reveal max-w-[760px]">
+
+        <p class="text-[13px] leading-[1.7] text-[#777]">
+          Saat ini saya sedang mempelajari:
+        </p>
+
+        <h2
+          class="section-heading mt-6 text-[44px] font-medium sm:text-[58px]"
+        >
+          /CURRENTLY LEARNING
+        </h2>
+
+      </div>
+
+
+      <div class="reveal mt-16 border-t border-[#ddd]">
+
+        <div
+          class="learning-row flex items-center justify-between gap-6 border-b border-[#ddd] py-8"
+        >
+
+          <h3
+            class="outline-fill text-[clamp(34px,6.4vw,88px)] font-bold uppercase leading-none"
+          >
+            Vibe Coding
+          </h3>
+
+          <span class="text-[11px] text-[#999]">01</span>
+
+        </div>
+
+
+        <div
+          class="learning-row flex items-center justify-between gap-6 border-b border-[#ddd] py-8"
+        >
+
+          <h3
+            class="outline-fill text-[clamp(34px,6.4vw,88px)] font-bold uppercase leading-none"
+          >
+            AI Agent
+          </h3>
+
+          <span class="text-[11px] text-[#999]">02</span>
+
+        </div>
+
+
+        <div
+          class="learning-row flex items-center justify-between gap-6 border-b border-[#ddd] py-8"
+        >
+
+          <h3
+            class="outline-fill text-[clamp(34px,6.4vw,88px)] font-bold uppercase leading-none"
+          >
+            AI Engineer
+          </h3>
+
+          <span class="text-[11px] text-[#999]">03</span>
+
+        </div>
+
+      </div>
+
+
+      <p
+        class="reveal mt-10 max-w-[420px] text-[14px] leading-[1.65] text-[#555]"
+      >
+        Untuk mempersiapkan karir di
+        masa depan.
+      </p>
+
+    </section>
+
+
+    <!-- =======================================================
+         BEYOND CODING
+    ======================================================== -->
+
+    <section
+      id="beyond"
+      class="border-b border-[#e5e5e5] px-6 py-28 sm:px-10 lg:px-14 lg:py-36"
+    >
+
+      <div
+        class="reveal flex flex-col justify-between gap-6 sm:flex-row sm:items-end"
+      >
+
+        <h2
+          class="section-heading text-[44px] font-medium sm:text-[58px]"
+        >
+          /BEYOND CODING
+        </h2>
+
+        <p
+          class="max-w-[300px] text-[13px] leading-[1.65] text-[#666]"
+        >
+          What sits outside the editor.
+        </p>
+
+      </div>
+
+
+      <div
+        class="mt-14 grid grid-flow-dense gap-4 md:grid-cols-2 lg:auto-rows-[250px] lg:grid-cols-4"
+      >
+
+
+        <!-- HOBBIES -->
+
+        <article
+          class="group relative flex min-h-[340px] flex-col justify-between overflow-hidden border border-[#e5e5e5] bg-white p-7 md:col-span-2 lg:col-span-2 lg:row-span-2 lg:min-h-0"
+        >
+
+          <div
+            class="pointer-events-none absolute inset-0 bg-cover bg-center opacity-[0.10] grayscale transition-transform duration-700 ease-out group-hover:scale-105"
+            style="background-image: url('https://picsum.photos/seed/offduty/1200/900');"
+            aria-hidden="true"
+          ></div>
+
+
+          <div class="relative">
+
+            <p
+              class="text-[10px] uppercase tracking-[0.14em] text-[#999]"
+            >
+              Hobbies
+            </p>
+
+            <p
+              class="mt-6 max-w-[300px] text-[clamp(24px,2.6vw,34px)] font-medium leading-[1.1] tracking-[-0.05em]"
+            >
+              What I do when the editor is closed.
+            </p>
+
+          </div>
+
+
+          <div class="relative flex flex-wrap gap-2">
+
+            <span class="rounded-full border border-[#ddd] bg-white px-4 py-2 text-[12px]">
+              Nonton
+            </span>
+
+            <span class="rounded-full border border-[#ddd] bg-white px-4 py-2 text-[12px]">
+              Game
+            </span>
+
+            <span class="rounded-full border border-[#ddd] bg-white px-4 py-2 text-[12px]">
+              Explorasi
+            </span>
+
+            <span class="rounded-full border border-[#ddd] bg-white px-4 py-2 text-[12px]">
+              Music
+            </span>
+
+            <span class="rounded-full border border-[#ddd] bg-white px-4 py-2 text-[12px]">
+              Mempelajari hal baru
+            </span>
+
+          </div>
+
+        </article>
+
+
+        <!-- INTERESTS -->
+
+        <article
+          class="group relative flex min-h-[240px] flex-col justify-between overflow-hidden border border-[#e5e5e5] bg-white p-7 md:col-span-2"
+        >
+
+          <p
+            class="text-[10px] uppercase tracking-[0.14em] text-[#999]"
+          >
+            Interests
+          </p>
+
+          <div>
+
+            <p
+              class="text-[clamp(26px,3vw,40px)] font-medium leading-[1.05] tracking-[-0.055em]"
+            >
+              Game
+              <span class="text-[#bbb]">/</span>
+              Psycology
+              <span class="text-[#bbb]">/</span>
+              Alam
+            </p>
+
+            <div
+              class="mt-6 h-px w-full origin-left scale-x-100 bg-[#e6e6e6] transition-transform duration-700 ease-out group-hover:scale-x-110"
+            ></div>
+
+          </div>
+
+        </article>
+
+
+        <!-- PRINCIPLE — MURPHY LAW -->
+
+        <article
+          class="group flex min-h-[240px] flex-col justify-between overflow-hidden border border-[#e5e5e5] bg-white p-7"
+        >
+
+          <p
+            class="text-[10px] uppercase tracking-[0.14em] text-[#999]"
+          >
+            Principle
+          </p>
+
+          <div>
+
+            <p
+              class="text-[21px] font-medium leading-[1.1] tracking-[-0.045em]"
+            >
+              Murphy Law
+            </p>
+
+            <p
+              class="mt-3 text-[12px] leading-[1.6] text-[#777]"
+            >
+              Anything that can go wrong will go wrong.
+            </p>
+
+          </div>
+
+        </article>
+
+
+        <!-- PRINCIPLE — STOICISM -->
+
+        <article
+          class="group flex min-h-[240px] flex-col justify-between overflow-hidden border border-[#e5e5e5] bg-white p-7"
+        >
+
+          <p
+            class="text-[10px] uppercase tracking-[0.14em] text-[#999]"
+          >
+            Principle
+          </p>
+
+          <div>
+
+            <p
+              class="text-[21px] font-medium leading-[1.1] tracking-[-0.045em]"
+            >
+              Stoicism
+            </p>
+
+            <p
+              class="mt-3 text-[12px] leading-[1.6] text-[#777]"
+            >
+              Focus on what you can control.
+            </p>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         LET'S TALK
+         
+         WINDOW OPENING EFFECT
+    ======================================================== -->
+
+    <section
+      id="contact"
+      class="contact-section relative min-h-[720px] overflow-hidden bg-[#151515] px-6 py-32 text-white sm:px-10 lg:px-14 lg:py-40"
+    >
+
+
+      <!-- Window shutters -->
+
+      <div
+        class="contact-window"
+        aria-hidden="true"
+      >
+
+        <div
+          class="window-panel window-panel-left"
+        ></div>
+
+        <div
+          class="window-panel window-panel-right"
+        ></div>
+
+        <div
+          class="window-center-line"
+        ></div>
+
+      </div>
+
+
+      <!-- Contact content -->
+
+      <div
+        class="contact-content relative z-10 mx-auto flex min-h-[550px] max-w-[1100px] flex-col items-center justify-center text-center"
+      >
+
+        <p
+          class="text-[10px] uppercase tracking-[0.14em] text-[#888]"
+        >
+          Available for selected projects
+        </p>
+
+
+        <h2
+          class="contact-title mt-8 text-[15vw] font-medium uppercase leading-[0.78] tracking-[-0.1em] sm:text-[11vw] lg:text-[8rem]"
+        >
+          LET'S WORK
+          <br />
+          TOGETHER
+        </h2>
+
+
+        <p
+          class="mt-10 max-w-[560px] text-[14px] leading-[1.7] text-[#aaa]"
+        >
+          Saya selalu terbuka untuk bertemu
+          dengan orang-orang baru, mengerjakan
+          project menarik, berkolaborasi, dan
+          bertukar ide. Jika kamu memiliki ide,
+          project, atau sekadar ingin
+          berdiskusi tentang teknologi, jangan
+          ragu untuk menghubungi saya.
+        </p>
+
+
+        <!-- CONTACT INFO -->
+
+        <div
+          class="mt-14 grid w-full max-w-[820px] gap-6 border-t border-[#2c2c2c] pt-8 text-left sm:grid-cols-3"
+        >
+
+          <div>
+
+            <p
+              class="text-[10px] uppercase tracking-[0.14em] text-[#999]"
+            >
+              Email
+            </p>
+
+            <a
+              href="mailto:ilhampuenya@gmail.com"
+              class="mt-3 block break-all text-[15px] tracking-[-0.02em] text-white transition hover:text-[#aaa]"
+            >
+              ilhampuenya@gmail.com
+            </a>
+
+          </div>
+
+
+          <div>
+
+            <p
+              class="text-[10px] uppercase tracking-[0.14em] text-[#999]"
+            >
+              Instagram
+            </p>
+
+            <a
+              href="https://instagram.com/iillhhmm__"
+              target="_blank"
+              rel="noreferrer"
+              class="mt-3 block text-[15px] tracking-[-0.02em] text-white transition hover:text-[#aaa]"
+            >
+              @iillhhmm__
+            </a>
+
+          </div>
+
+
+          <div>
+
+            <p
+              class="text-[10px] uppercase tracking-[0.14em] text-[#999]"
+            >
+              Location
+            </p>
+
+            <p
+              class="mt-3 text-[15px] tracking-[-0.02em] text-white"
+            >
+              Kediri
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <a
+          href="mailto:ilhampuenya@gmail.com"
+          data-magnetic
+          class="contact-button magnetic-button mt-9 inline-flex rounded-full bg-white px-7 py-4 text-[11px] font-medium text-[#151515]"
+        >
+          LET'S TALK ↗
+        </a>
+
+      </div>
+
+
+      <!-- Tiny window caption -->
+
+      <div
+        class="absolute bottom-8 left-6 z-30 text-[9px] uppercase tracking-[0.12em] text-[#666] sm:left-10 lg:left-14"
+      >
+        M.I / 2026
+      </div>
+
+
+      <div
+        class="absolute bottom-8 right-6 z-30 text-[9px] uppercase tracking-[0.12em] text-[#666] sm:right-10 lg:right-14"
+      >
+        CLOSE THE GAP ↗
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         FOOTER
+    ======================================================== -->
+
+    <footer
+      class="bg-[#151515] px-6 pb-8 pt-8 text-white sm:px-10 lg:px-14"
+    >
+
+      <div
+        class="flex flex-col gap-8 border-t border-[#292929] pt-8 sm:flex-row sm:items-end sm:justify-between"
+      >
+
+        <div>
+
+          <p
+            class="text-[19px] font-medium tracking-[-0.04em]"
+          >
+            IlhamGot
+          </p>
+
+          <p
+            class="mt-2 text-[10px] text-[#777]"
+          >
+            web dev, ai specialist
+          </p>
+
+        </div>
+
+
+        <div
+          class="flex flex-wrap gap-5 text-[10px] text-[#999]"
+        >
+
+          <a
+            href="#home"
+            class="transition hover:text-white"
+          >
+            Home
+          </a>
+
+          <a
+            href="#work"
+            class="transition hover:text-white"
+          >
+            Work
+          </a>
+
+          <a
+            href="#about"
+            class="transition hover:text-white"
+          >
+            About
+          </a>
+
+          <a
+            href="#skills"
+            class="transition hover:text-white"
+          >
+            Skills
+          </a>
+
+          <a
+            href="#journey"
+            class="transition hover:text-white"
+          >
+            Journey
+          </a>
+
+          <a
+            href="#contact"
+            class="transition hover:text-white"
+          >
+            Contact
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="mt-8 flex flex-col gap-2 border-t border-[#292929] pt-6 text-[10px] text-[#666] sm:flex-row sm:justify-between"
+      >
+
+        <span>
+          © 2026 Muhammad Ilham.
+        </span>
+
+        <span>
+          All rights reserved.
+        </span>
+
+      </div>
+
+    </footer>
+
+
+  </main>
+
+
+  <!-- =========================================================
+       JAVASCRIPT
+  ========================================================== -->
+
+  <script>
+
+    // HERO CURTAIN REVEAL — LEFT/RIGHT OPENING
+    window.addEventListener("load", () => {
+      const heroName = document.getElementById("heroNameReveal");
+      const heroText = document.getElementById("heroTextReveal");
+
+      requestAnimationFrame(() => {
+        // MUHAMMAD ILHAM — tampil lebih cepat
+        setTimeout(() => {
+          heroName?.classList.add("is-open");
+        }, 80);
+
+        // Digital Designer block — menyusul dengan ritme lebih lambat
+        setTimeout(() => {
+          heroText?.classList.add("is-open");
+        }, 420);
+      });
+    });
+
+    /* =========================================================
+       GENERAL SCROLL REVEAL
+    ========================================================== */
+
+    const revealElements =
+      document.querySelectorAll(
+        ".reveal, .reveal-image"
+      );
+
+
+    const revealObserver =
+      new IntersectionObserver(
+        (entries) => {
+
+          entries.forEach(
+            (entry) => {
+
+              if (
+                entry.isIntersecting
+              ) {
+
+                entry.target.classList.add(
+                  "is-visible"
+                );
+
+                revealObserver.unobserve(
+                  entry.target
+                );
+
+              }
+
+            }
+          );
+
+        },
+        {
+          threshold: 0.12
+        }
+      );
+
+
+    revealElements.forEach(
+      (element) => {
+
+        revealObserver.observe(
+          element
+        );
+
+      }
+    );
+
+
+    /* =========================================================
+       SELECTED WORK — FIRST CARD ENTRANCE
+
+       Only the first card needs this: cards 2-4
+       already arrive through the stacked handoff.
+       The styles live inside a max-width: 1023px
+       block, so observing here is harmless on
+       desktop — the class changes nothing there.
+    ========================================================== */
+
+    const workEntranceElements =
+      document.querySelectorAll(
+        ".work-entrance"
+      );
+
+
+    const workEntranceObserver =
+      new IntersectionObserver(
+        (entries, observer) => {
+
+          entries.forEach(
+            (entry) => {
+
+              if (
+                entry.isIntersecting
+              ) {
+
+                entry.target.classList.add(
+                  "is-visible"
+                );
+
+                observer.unobserve(
+                  entry.target
+                );
+
+              }
+
+            }
+          );
+
+        },
+        {
+          threshold: 0.12
+        }
+      );
+
+
+    workEntranceElements.forEach(
+      (element) => {
+
+        workEntranceObserver.observe(
+          element
+        );
+
+      }
+    );
+
+
+    /* =========================================================
+       MOBILE MENU
+    ========================================================== */
+
+    const menuButton =
+      document.getElementById(
+        "menuButton"
+      );
+
+    const mobileMenu =
+      document.getElementById(
+        "mobileMenu"
+      );
+
+    const menuIcon =
+      document.getElementById(
+        "menuIcon"
+      );
+
+
+    if (menuButton) {
+
+      menuButton.addEventListener(
+        "click",
+        () => {
+
+          const open =
+            mobileMenu.classList.toggle(
+              "open"
+            );
+
+
+          menuIcon.textContent =
+            open
+              ? "×"
+              : "+";
+
+
+          menuButton.setAttribute(
+            "aria-expanded",
+            open
+          );
+
+        }
+      );
+
+    }
+
+
+    document
+      .querySelectorAll(
+        "#mobileMenu a"
+      )
+      .forEach(
+        (link) => {
+
+          link.addEventListener(
+            "click",
+            () => {
+
+              mobileMenu.classList.remove(
+                "open"
+              );
+
+              menuIcon.textContent =
+                "+";
+
+            }
+          );
+
+        }
+      );
+
+
+    /* =========================================================
+       MY JOURNEY TIMELINE
+
+       1. Timeline activates.
+       2. Line grows.
+       3. Each stage appears sequentially.
+    ========================================================== */
+
+    const journeyTimeline =
+      document.getElementById(
+        "journeyTimeline"
+      );
+
+    const experienceItems =
+      document.querySelectorAll(
+        ".experience-item"
+      );
+
+    let journeyStarted =
+      false;
+
+
+    if (
+      journeyTimeline
+    ) {
+
+      const journeyObserver =
+        new IntersectionObserver(
+          (entries) => {
+
+            if (
+              entries[0].isIntersecting &&
+              !journeyStarted
+            ) {
+
+              journeyStarted =
+                true;
+
+
+              journeyTimeline.classList.add(
+                "is-visible"
+              );
+
+
+              experienceItems.forEach(
+                (item, index) => {
+
+                  const delay =
+                    Number(
+                      item.dataset.delay ||
+                      index * 180
+                    );
+
+
+                  setTimeout(
+                    () => {
+
+                      item.classList.add(
+                        "is-visible"
+                      );
+
+                    },
+                    450 + delay
+                  );
+
+                }
+              );
+
+
+              journeyObserver.unobserve(
+                journeyTimeline
+              );
+
+            }
+
+          },
+          {
+            threshold: 0.18
+          }
+        );
+
+
+      journeyObserver.observe(
+        journeyTimeline
+      );
+
+    }
+
+
+    /* =========================================================
+       LET'S TALK — WINDOW OPENING
+       
+       Two dark panels start together in the middle.
+       When the section enters viewport:
+       
+       LEFT  → moves left
+       RIGHT → moves right
+       
+       Content is revealed behind them.
+    ========================================================== */
+
+    const contactSection =
+      document.querySelector(
+        ".contact-section"
+      );
+
+    let contactOpened =
+      false;
+
+
+    if (contactSection) {
+
+      const contactObserver =
+        new IntersectionObserver(
+          (entries) => {
+
+            if (
+              entries[0].isIntersecting &&
+              !contactOpened
+            ) {
+
+              contactOpened =
+                true;
+
+
+              setTimeout(
+                () => {
+
+                  contactSection.classList.add(
+                    "is-open"
+                  );
+
+                },
+                180
+              );
+
+
+              contactObserver.unobserve(
+                contactSection
+              );
+
+            }
+
+          },
+          {
+            threshold: 0.25
+          }
+        );
+
+
+      contactObserver.observe(
+        contactSection
+      );
+
+    }
+
+
+    /* =========================================================
+       PROJECT FILTER
+    ========================================================== */
+
+    const filterButtons =
+      document.querySelectorAll(
+        ".filter-button"
+      );
+
+    const projectItems =
+      document.querySelectorAll(
+        ".project-item"
+      );
+
+
+    filterButtons.forEach(
+      (button) => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            const filter =
+              button.dataset.filter;
+
+
+            filterButtons.forEach(
+              (item) => {
+
+                item.classList.remove(
+                  "active"
+                );
+
+                item.classList.add(
+                  "text-[#888]"
+                );
+
+              }
+            );
+
+
+            button.classList.add(
+              "active"
+            );
+
+            button.classList.remove(
+              "text-[#888]"
+            );
+
+
+            projectItems.forEach(
+              (project) => {
+
+                const category =
+                  project.dataset.category;
+
+
+                const show =
+                  filter === "all" ||
+                  category === filter;
+
+
+                if (show) {
+
+                  project.style.display =
+                    "";
+
+                  requestAnimationFrame(
+                    () => {
+
+                      project.style.opacity =
+                        "1";
+
+                    }
+                  );
+
+                } else {
+
+                  project.style.opacity =
+                    "0";
+
+
+                  setTimeout(
+                    () => {
+
+                      if (
+                        project.style.opacity ===
+                        "0"
+                      ) {
+
+                        project.style.display =
+                          "none";
+
+                      }
+
+                    },
+                    300
+                  );
+
+                }
+
+              }
+            );
+
+          }
+        );
+
+      }
+    );
+
+
+    /* =========================================================
+       MOBILE — STACKED PROJECT CARDS
+
+       Tap the active image: it tucks behind the stack,
+       the next card steps forward, text follows the same
+       index. Plain CSS transitions do the moving, so a
+       rapid second tap retargets the cards mid-flight
+       instead of fighting a running animation.
+
+       Data is read from the existing articles — the DOM
+       stays the single source of truth. Desktop keeps
+       the original article list untouched.
+    ========================================================== */
+
+    const projectGrid =
+      document.getElementById(
+        "projectGrid"
+      );
+
+    const stackStage =
+      document.getElementById(
+        "stackStage"
+      );
+
+    const stackContent =
+      document.getElementById(
+        "stackContent"
+      );
+
+    const stackMedia =
+      window.matchMedia(
+        "(max-width: 768px)"
+      );
+
+
+    /* depth poses — how far each card sits
+       behind the active one */
+
+    const STACK_POSES = [
+      { x:   0, y:   0, s: 1,    r:  0, o: 1,    z: 30 },
+      { x:  12, y: -10, s: 0.96, r:  2, o: 0.75, z: 20 },
+      { x: -16, y: -16, s: 0.92, r: -3, o: 0.55, z: 10 },
+      { x:  20, y: -22, s: 0.88, r:  4, o: 0.35, z:  5 }
+    ];
+
+
+    let stackEntries = [];
+    let stackIndex = 0;
+
+
+    const readStackEntries = () => {
+
+      const activeButton =
+        document.querySelector(
+          ".filter-button.active"
+        );
+
+
+      const filter =
+        activeButton?.dataset.filter ||
+        "all";
+
+
+      return Array.from(projectItems)
+
+        .filter((item) =>
+          filter === "all" ||
+          item.dataset.category === filter
+        )
+
+        .map((item) => {
+
+          const heading =
+            item.querySelector("h3");
+
+          const textBlock =
+            heading.parentElement;
+
+
+          return {
+            source:
+              item.querySelector("img"),
+
+            num:
+              textBlock.children[0]
+                .cloneNode(true),
+
+            heading:
+              heading.cloneNode(true),
+
+            category:
+              textBlock.children[2]
+                .cloneNode(true),
+
+            description:
+              textBlock.children[3]
+                .cloneNode(true),
+
+            link:
+              textBlock.parentElement
+                .querySelector("a")
+                .cloneNode(true),
+
+            title:
+              heading.textContent
+                .replace(/\s+/g, " ")
+                .trim()
+          };
+
+        });
+
+    };
+
+
+    const renderStackContent = () => {
+
+      const entry =
+        stackEntries[stackIndex];
+
+
+      if (!entry) {
+        return;
+      }
+
+
+      stackContent.replaceChildren(
+        entry.num,
+        entry.heading,
+        entry.category,
+        entry.description,
+        entry.link
+      );
+
+
+      stackStage.setAttribute(
+        "aria-label",
+        `Show next project — current project: ${entry.title}`
+      );
+
+    };
+
+
+    const layoutStack = () => {
+
+      const total =
+        stackEntries.length;
+
+
+      stackStage
+        .querySelectorAll(".stack-card")
+        .forEach((card, index) => {
+
+          const depth =
+            (
+              (index - stackIndex) %
+                total +
+              total
+            ) %
+            total;
+
+
+          const pose =
+            STACK_POSES[depth] ||
+            STACK_POSES[
+              STACK_POSES.length - 1
+            ];
+
+
+          card.style.transform =
+            `translate(${pose.x}px, ${pose.y}px) ` +
+            `scale(${pose.s}) ` +
+            `rotate(${pose.r}deg)`;
+
+          card.style.opacity =
+            pose.o;
+
+          card.style.zIndex =
+            pose.z;
+
+        });
+
+    };
+
+
+    /* reserve the tallest content height so
+       the section never jumps when the
+       project changes */
+
+    const measureStackContent = () => {
+
+      let tallest = 0;
+
+      const active = stackIndex;
+
+
+      stackEntries.forEach(
+        (_, index) => {
+
+          stackIndex = index;
+          renderStackContent();
+
+          tallest = Math.max(
+            tallest,
+            stackContent.offsetHeight
+          );
+
+        }
+      );
+
+
+      stackIndex = active;
+      renderStackContent();
+
+
+      stackContent.style.minHeight =
+        tallest > 0
+          ? `${tallest}px`
+          : "";
+
+    };
+
+
+    const buildStack = () => {
+
+      stackEntries =
+        readStackEntries();
+
+      stackIndex = 0;
+
+
+      const cards =
+        stackEntries.map((entry) => {
+
+          const card =
+            document.createElement("div");
+
+          card.className =
+            "stack-card";
+
+
+          const image =
+            document.createElement("img");
+
+          image.src =
+            entry.source.getAttribute(
+              "src"
+            );
+
+          image.alt =
+            entry.source.alt;
+
+          /* eager: the stack must never
+             be blank when tapped */
+
+          image.loading = "eager";
+          image.decoding = "async";
+
+
+          card.appendChild(image);
+
+          return card;
+
+        });
+
+
+      stackStage.replaceChildren(
+        ...cards
+      );
+
+
+      renderStackContent();
+      layoutStack();
+      measureStackContent();
+
+    };
+
+
+    const advanceStack = () => {
+
+      if (stackEntries.length < 2) {
+        return;
+      }
+
+
+      stackIndex =
+        (stackIndex + 1) %
+        stackEntries.length;
+
+
+      layoutStack();
+      renderStackContent();
+
+    };
+
+
+    stackStage.addEventListener(
+      "click",
+      advanceStack
+    );
+
+
+    stackStage.addEventListener(
+      "keydown",
+      (event) => {
+
+        if (
+          event.key === "Enter" ||
+          event.key === " "
+        ) {
+
+          event.preventDefault();
+
+          advanceStack();
+
+        }
+
+      }
+    );
+
+
+    const applyStackMode = () => {
+
+      if (stackMedia.matches) {
+
+        projectGrid.classList.add(
+          "is-stacked"
+        );
+
+        buildStack();
+
+      } else {
+
+        projectGrid.classList.remove(
+          "is-stacked"
+        );
+
+      }
+
+
+      requestAnimationFrame(() => {
+
+        if (window.ScrollTrigger) {
+          ScrollTrigger.refresh();
+        }
+
+      });
+
+    };
+
+
+    stackMedia.addEventListener(
+      "change",
+      applyStackMode
+    );
+
+
+    if (stackMedia.matches) {
+      applyStackMode();
+    }
+
+
+    window.addEventListener(
+      "resize",
+      () => {
+
+        if (
+          projectGrid.classList.contains(
+            "is-stacked"
+          )
+        ) {
+          measureStackContent();
+        }
+
+      }
+    );
+
+
+    /* rebuild when a filter changes the
+       visible set — the existing handler
+       runs first, so .active is current */
+
+    filterButtons.forEach(
+      (button) => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            if (
+              projectGrid.classList.contains(
+                "is-stacked"
+              )
+            ) {
+              buildStack();
+            }
+
+          }
+        );
+
+      }
+    );
+
+
+    /* =========================================================
+       SKILLS ACCORDION
+    ========================================================== */
+
+    const skillsAccordion =
+      document.getElementById(
+        "skillsAccordion"
+      );
+
+
+    if (skillsAccordion) {
+
+      const slices =
+        skillsAccordion.querySelectorAll(
+          ".skill-slice"
+        );
+
+
+      slices.forEach(
+        (slice) => {
+
+          const openSlice = () => {
+
+            slices.forEach(
+              (item) =>
+                item.classList.remove(
+                  "is-open"
+                )
+            );
+
+            slice.classList.add(
+              "is-open"
+            );
+
+          };
+
+
+          slice.addEventListener(
+            "mouseenter",
+            openSlice
+          );
+
+
+          slice.addEventListener(
+            "click",
+            openSlice
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =========================================================
+       GSAP MOTION
+
+       1. Card stacking — Selected Work
+       2. Scrubbing text reveal — Now
+    ========================================================== */
+
+    const reduceMotion =
+      window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
+
+    if (
+      !reduceMotion &&
+      window.gsap &&
+      window.ScrollTrigger
+    ) {
+
+      gsap.registerPlugin(ScrollTrigger);
+
+
+      /* ---- CARD STACKING ---- */
+
+      const motionMedia =
+        gsap.matchMedia();
+
+
+      motionMedia.add(
+        "(min-width: 1024px)",
+        () => {
+
+          const stackItems =
+            gsap.utils.toArray(
+              ".work-stack-item"
+            );
+
+
+          stackItems.forEach(
+            (card, index) => {
+
+              const next =
+                stackItems[index + 1];
+
+
+              if (!next) {
+                return;
+              }
+
+
+              gsap.to(card, {
+                scale: 0.95,
+                opacity: 0.5,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: next,
+                  start: "top bottom",
+                  end: "top top+=96",
+                  scrub: true
+                }
+              });
+
+            }
+          );
+
+        }
+      );
+
+
+      /* ---- MOBILE STACKED REVEAL ----
+
+         The cards are taller than a phone viewport,
+         so pinning one would strand its lower half
+         behind a frozen frame. Cards stay in normal
+         flow instead; each handoff is a scrubbed
+         vertical exchange: the current card lifts
+         away and shrinks while the next card rises
+         from behind it, dips under its bottom edge,
+         then settles into rest as it clears.
+
+         z-index keeps the current card in front so
+         the next one reads as sitting behind the
+         stack, not sliding over it.
+      */
+
+      motionMedia.add(
+        "(max-width: 1023px)",
+        () => {
+
+          /* ambient depth: the watermark backdrop
+             lags behind the scroll — decoration
+             only, never content that is read */
+
+          const workBackdrop =
+            document.querySelector(
+              '#work > div[aria-hidden="true"]'
+            );
+
+
+          if (workBackdrop) {
+
+            gsap.to(workBackdrop, {
+              y: 120,
+              ease: "none",
+              scrollTrigger: {
+                trigger: "#work",
+                start: "top bottom",
+                end: "top top",
+                scrub: true
+              }
+            });
+
+          }
+
+
+          const cards =
+            gsap.utils.toArray(
+              ".work-stack-item"
+            );
+
+
+          gsap.set(cards, {
+            transformPerspective: 1200,
+            zIndex: (index) =>
+              cards.length - index
+          });
+
+
+          cards.forEach(
+            (card, index) => {
+
+              const next =
+                cards[index + 1];
+
+
+              if (!next) {
+                return;
+              }
+
+
+              const handoff =
+                gsap.timeline({
+                  scrollTrigger: {
+                    trigger: next,
+                    start: "top bottom",
+                    end: "top top",
+                    scrub: true
+                  }
+                });
+
+
+              /* current card: lifts upward,
+                 shrinks, bottom edge tips away */
+
+              handoff.to(
+                card,
+                {
+                  y: -70,
+                  scale: 0.94,
+                  rotateX: -2,
+                  ease: "none",
+                  duration: 1
+                },
+                0
+              );
+
+
+              /* next card: rises from behind —
+                 dips under the current card, then
+                 settles back to rest */
+
+              handoff.fromTo(
+                next,
+                { y: 0 },
+                {
+                  y: -160,
+                  ease: "none",
+                  duration: 0.5
+                },
+                0
+              );
+
+              handoff.to(
+                next,
+                {
+                  y: 0,
+                  ease: "none",
+                  duration: 0.5
+                },
+                0.5
+              );
+
+
+              /* depth: next card comes forward
+                 from slightly behind */
+
+              handoff.fromTo(
+                next,
+                {
+                  scale: 0.96,
+                  opacity: 0.8,
+                  z: -40
+                },
+                {
+                  scale: 1,
+                  opacity: 1,
+                  z: 0,
+                  ease: "none",
+                  duration: 1
+                },
+                0
+              );
+
+            }
+          );
+
+        }
+      );
+
+
+      /* ---- SCRUBBING TEXT REVEAL ---- */
+
+      const nowStatement =
+        document.getElementById(
+          "nowStatement"
+        );
+
+
+      if (nowStatement) {
+
+        const wrapWords = (node) => {
+
+          if (
+            node.nodeType ===
+            Node.TEXT_NODE
+          ) {
+
+            const fragment =
+              document.createDocumentFragment();
+
+
+            node.textContent
+              .split(/(\s+)/)
+              .forEach((part) => {
+
+                if (
+                  part === "" ||
+                  /^\s+$/.test(part)
+                ) {
+
+                  fragment.appendChild(
+                    document.createTextNode(
+                      part
+                    )
+                  );
+
+                } else {
+
+                  const span =
+                    document.createElement(
+                      "span"
+                    );
+
+                  span.className =
+                    "scrub-word";
+
+                  span.textContent =
+                    part;
+
+                  fragment.appendChild(
+                    span
+                  );
+
+                }
+
+              });
+
+
+            node.parentNode.replaceChild(
+              fragment,
+              node
+            );
+
+          } else if (
+            node.nodeType ===
+            Node.ELEMENT_NODE
+          ) {
+
+            Array.from(
+              node.childNodes
+            ).forEach(wrapWords);
+
+          }
+
+        };
+
+
+        Array.from(
+          nowStatement.childNodes
+        ).forEach(wrapWords);
+
+
+        const targets =
+          nowStatement.querySelectorAll(
+            ".scrub-word, .inline-pill"
+          );
+
+
+        gsap.set(targets, {
+          opacity: 0.12
+        });
+
+
+        gsap.to(targets, {
+          opacity: 1,
+          ease: "none",
+          stagger: 0.06,
+          scrollTrigger: {
+            trigger: nowStatement,
+            start: "top 85%",
+            end: "bottom 55%",
+            scrub: true
+          }
+        });
+
+      }
+
+
+      window.addEventListener(
+        "load",
+        () => {
+          ScrollTrigger.refresh();
+        }
+      );
+
+    }
+
+
+    /* =========================================================
+       CUSTOM CURSOR
+    ========================================================== */
+
+    const cursor =
+      document.getElementById(
+        "cursor"
+      );
+
+
+    if (
+      cursor &&
+      window.matchMedia(
+        "(pointer: fine)"
+      ).matches
+    ) {
+
+      let mouseX = 0;
+      let mouseY = 0;
+
+      let currentX = 0;
+      let currentY = 0;
+
+
+      window.addEventListener(
+        "mousemove",
+        (event) => {
+
+          mouseX =
+            event.clientX;
+
+          mouseY =
+            event.clientY;
+
+        }
+      );
+
+
+      function animateCursor() {
+
+        currentX +=
+          (mouseX - currentX) *
+          0.18;
+
+        currentY +=
+          (mouseY - currentY) *
+          0.18;
+
+
+        cursor.style.left =
+          currentX + "px";
+
+        cursor.style.top =
+          currentY + "px";
+
+
+        requestAnimationFrame(
+          animateCursor
+        );
+
+      }
+
+
+      animateCursor();
+
+
+      document
+        .querySelectorAll(
+          "a, button"
+        )
+        .forEach(
+          (element) => {
+
+            element.addEventListener(
+              "mouseenter",
+              () => {
+
+                cursor.classList.add(
+                  "hovering"
+                );
+
+              }
+            );
+
+
+            element.addEventListener(
+              "mouseleave",
+              () => {
+
+                cursor.classList.remove(
+                  "hovering"
+                );
+
+              }
+            );
+
+          }
+        );
+
+    }
+
+
+    /* =========================================================
+       MAGNETIC BUTTON
+    ========================================================== */
+
+    document
+      .querySelectorAll(
+        "[data-magnetic]"
+      )
+      .forEach(
+        (button) => {
+
+          button.addEventListener(
+            "mousemove",
+            (event) => {
+
+              if (
+                window.innerWidth < 768
+              ) {
+                return;
+              }
+
+
+              const rect =
+                button.getBoundingClientRect();
+
+
+              const x =
+                event.clientX -
+                rect.left -
+                rect.width / 2;
+
+
+              const y =
+                event.clientY -
+                rect.top -
+                rect.height / 2;
+
+
+              button.style.transform =
+                `
+                translate(
+                  ${x * 0.12}px,
+                  ${y * 0.12}px
+                )
+                `;
+
+            }
+          );
+
+
+          button.addEventListener(
+            "mouseleave",
+            () => {
+
+              button.style.transform =
+                "";
+
+            }
+          );
+
+        }
+      );
+
+
+    /* =========================================================
+       ACTIVE NAVIGATION
+    ========================================================== */
+
+    const sections =
+      document.querySelectorAll(
+        "section[id]"
+      );
+
+    const navLinks =
+      document.querySelectorAll(
+        ".nav-link"
+      );
+
+
+    const navObserver =
+      new IntersectionObserver(
+        (entries) => {
+
+          entries.forEach(
+            (entry) => {
+
+              if (
+                entry.isIntersecting
+              ) {
+
+                navLinks.forEach(
+                  (link) => {
+
+                    link.classList.remove(
+                      "active"
+                    );
+
+
+                    if (
+                      link.getAttribute(
+                        "href"
+                      ) ===
+                      `#${entry.target.id}`
+                    ) {
+
+                      link.classList.add(
+                        "active"
+                      );
+
+                    }
+
+                  }
+                );
+
+              }
+
+            }
+          );
+
+        },
+        {
+          rootMargin:
+            "-40% 0px -50% 0px"
+        }
+      );
+
+
+    sections.forEach(
+      (section) => {
+
+        navObserver.observe(
+          section
+        );
+
+      }
+    );
+
+
+    /* =========================================================
+       HERO SUBTLE PARALLAX
+    ========================================================== */
+
+    const hero =
+      document.querySelector(
+        ".hero"
+      );
+
+    const heroPerson =
+      document.querySelector(
+        ".hero-person"
+      );
+
+
+    if (
+      hero &&
+      heroPerson
+    ) {
+
+      hero.addEventListener(
+        "mousemove",
+        (event) => {
+
+          if (
+            window.innerWidth <= 768
+          ) {
+            return;
+          }
+
+
+          const rect =
+            hero.getBoundingClientRect();
+
+
+          const x =
+            (
+              event.clientX -
+              rect.left
+            ) /
+            rect.width -
+            0.5;
+
+
+          const y =
+            (
+              event.clientY -
+              rect.top
+            ) /
+            rect.height -
+            0.5;
+
+
+          heroPerson.style.transform =
+            `
+            translate(
+              ${x * 8}px,
+              ${y * 5 - 5}px
+            )
+            scale(1.01)
+            `;
+
+        }
+      );
+
+
+      hero.addEventListener(
+        "mouseleave",
+        () => {
+
+          heroPerson.style.transform =
+            "";
+
+        }
+      );
+
+    }
+
+  </script>
+
+</body>
+</html>
